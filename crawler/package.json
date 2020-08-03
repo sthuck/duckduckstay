@@ -1,0 +1,11 @@
+{
+  "name": "duckduckstay",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:sthuck/duckduckstay.git",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "aws-sdk": "^2.725.0"
+  }
+}
