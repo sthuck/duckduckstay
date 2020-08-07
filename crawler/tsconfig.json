@@ -4,7 +4,9 @@
         "target": "ESNext",
         "outDir": "dist",
         "incremental": true,
-        "strict": true
+        "strict": true,
+        "inlineSourceMap": true,
+        "inlineSources": true
     },
     "exclude": [
         "node_modules"

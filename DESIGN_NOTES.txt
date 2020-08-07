@@ -1,0 +1,6 @@
+# Crawler
+
+Don't crawl any links that have query parameters. There are too many dangerous
+things that can happen, like following an endless trail of "next" links, or
+getting stuck in an infinite loop. Handling them properly is possible but will
+be a lot of work.
