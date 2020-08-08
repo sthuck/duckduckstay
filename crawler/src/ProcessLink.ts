@@ -1,13 +1,18 @@
-import { downloadWebpage } from "./DownloadWebpage";
+import { downloadWebpage, cleanupDownloadedWebpage } from "./DownloadWebpage";
+import { indexWebpage, EsConfig } from "./IndexWebpage";
 
 export interface ProcessLinkInput {
     url: string;
 }
 
-export async function processLink(input: ProcessLinkInput): Promise<void> {
-    const webpage = await downloadWebpage({
+export async function processLink(es: EsConfig, input: ProcessLinkInput): Promise<void> {
+    const rawWebpage = await downloadWebpage({
         url: input.url
     });
 
-    webpage.html
+    const webpage = cleanupDownloadedWebpage(rawWebpage);
+
+    await indexWebpage(es, {
+        webpage: webpage
+    });
 }

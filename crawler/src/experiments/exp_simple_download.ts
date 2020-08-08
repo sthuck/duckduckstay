@@ -1,6 +1,5 @@
 import { downloadWebpageSimple } from "../mocks/DownloadWebpageSimple";
-import { DownloadWebpageOutput } from "../DownloadWebpage";
-import { fixWebpageLinks } from "../WebpageLinks";
+import { cleanupDownloadedWebpage } from "../DownloadWebpage";
 
 export async function main() {
     console.log("Downloading...");
@@ -9,10 +8,7 @@ export async function main() {
         url: "https://en.wikipedia.org/wiki/Special:Random"
     });
 
-    const webpage: DownloadWebpageOutput = {
-        ...rawWebpage,
-        links: fixWebpageLinks(rawWebpage.canonicalUrl, rawWebpage.links)
-    };
+    const webpage = cleanupDownloadedWebpage(rawWebpage);
 
     console.log("URL", webpage.canonicalUrl);
     console.log("TITLE", webpage.title);

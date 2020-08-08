@@ -1,4 +1,5 @@
 import { URL } from "url";
+import { fixWebpageLinks } from "./WebpageLinks";
 
 export interface DownloadWebpageInput {
     url: string;
@@ -23,4 +24,11 @@ export type DownloadWebpage = (input: DownloadWebpageInput) => Promise<DownloadW
 export function downloadWebpage(input: DownloadWebpageInput): Promise<DownloadWebpageOutput> {
     // TODO Use pupeteer to download the webpage
     throw new Error("TODO");
+}
+
+export function cleanupDownloadedWebpage(webpage: DownloadWebpageOutput): DownloadWebpageOutput {
+    return {
+        ...webpage,
+        links: fixWebpageLinks(webpage.canonicalUrl, webpage.links)
+    };
 }

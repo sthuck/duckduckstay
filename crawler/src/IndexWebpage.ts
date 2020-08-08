@@ -14,6 +14,7 @@ export async function indexWebpage(es: EsConfig, input: IndexWebpageInput): Prom
     await es.client.index({
         index: es.index,
         body: {
+            "@timestamp": new Date(),
             url: input.webpage.canonicalUrl,
             title: input.webpage.title,
             bodyText: input.webpage.bodyText,
