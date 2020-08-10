@@ -5,15 +5,27 @@
   "repository": "git@github.com:sthuck/duckduckstay.git",
   "license": "MIT",
   "private": true,
-  "dependencies": {
-    "@elastic/elasticsearch": "^7.8.0",
-    "@types/cheerio": "^0.22.21",
-    "@types/node": "^14.0.27",
-    "aws-sdk": "^2.725.0",
-    "cheerio": "^1.0.0-rc.3",
-    "got": "^11.5.2",
+  "scripts": {
+    "build": "tsc -p .",
+    "start": "node index.js"
+  },
+  "devDependencies": {
     "source-map-support": "^0.5.19",
     "ts-node": "^8.10.2",
-    "typescript": "^3.9.7"
+    "typescript": "^3.9.7",
+    "@types/cheerio": "^0.22.21",
+    "@types/node": "^14.0.27"
+  },
+  "dependencies": {
+    "@elastic/elasticsearch": "^7.8.0",
+    "aws-sdk": "^2.725.0",
+    "cheerio": "^1.0.0-rc.3",
+    "dotenv": "^8.2.0",
+    "got": "^11.5.2",
+    "puppeteer": "^5.2.1",
+    "puppeteer-cluster": "^0.22.0",
+    "puppeteer-extra": "^3.1.13",
+    "puppeteer-extra-plugin-adblocker": "^2.11.6",
+    "puppeteer-extra-plugin-stealth": "^2.5.0"
   }
 }
