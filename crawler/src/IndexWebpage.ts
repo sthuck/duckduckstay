@@ -2,22 +2,24 @@ import { Client } from '@elastic/elasticsearch';
 import { DownloadWebpageOutput } from './DownloadWebpage';
 
 export interface EsConfig {
-    client: Client;
-    index: string;
+  client: Client;
+  index: string;
 }
 
 export interface IndexWebpageInput {
-    webpage: DownloadWebpageOutput
+  webpage: DownloadWebpageOutput;
 }
 
 export async function indexWebpage(es: EsConfig, input: IndexWebpageInput): Promise<void> {
+  if (es) { //TODO: remove me
     await es.client.index({
-        index: es.index,
-        body: {
-            "@timestamp": new Date(),
-            url: input.webpage.canonicalUrl,
-            title: input.webpage.title,
-            bodyText: input.webpage.bodyText,
-        }
+      index: es.index,
+      body: {
+        "@timestamp": new Date(),
+        url: input.webpage.canonicalUrl,
+        title: input.webpage.title,
+        bodyText: input.webpage.bodyText,
+      }
     });
+  }
 }

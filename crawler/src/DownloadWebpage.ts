@@ -1,5 +1,6 @@
 import { URL } from "url";
 import { fixWebpageLinks } from "./WebpageLinks";
+import { crawlWebpage } from './crawling';
 
 export interface DownloadWebpageInput {
     url: string;
@@ -21,9 +22,8 @@ export interface DownloadWebpageOutput {
 
 export type DownloadWebpage = (input: DownloadWebpageInput) => Promise<DownloadWebpageOutput>;
 
-export function downloadWebpage(input: DownloadWebpageInput): Promise<DownloadWebpageOutput> {
-    // TODO Use pupeteer to download the webpage
-    throw new Error("TODO");
+export async function downloadWebpage(input: DownloadWebpageInput): Promise<DownloadWebpageOutput> {
+    return crawlWebpage(input);
 }
 
 export function cleanupDownloadedWebpage(webpage: DownloadWebpageOutput): DownloadWebpageOutput {

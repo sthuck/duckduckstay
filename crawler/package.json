@@ -14,18 +14,25 @@
     "ts-node": "^8.10.2",
     "typescript": "^3.9.7",
     "@types/cheerio": "^0.22.21",
-    "@types/node": "^14.0.27"
+    "@types/node": "^14.0.27",
+    "@elastic/elasticsearch": "^7.8.0",
+    "@types/debug": "^4.1.5",
+    "@types/lodash": "^4.14.159",
+    "@types/uuid": "^8.3.0",
+    "@types/winston": "^2.4.4"
   },
   "dependencies": {
-    "@elastic/elasticsearch": "^7.8.0",
     "aws-sdk": "^2.725.0",
     "cheerio": "^1.0.0-rc.3",
     "dotenv": "^8.2.0",
     "got": "^11.5.2",
+    "lodash": "^4.17.20",
     "puppeteer": "^5.2.1",
     "puppeteer-cluster": "^0.22.0",
     "puppeteer-extra": "^3.1.13",
     "puppeteer-extra-plugin-adblocker": "^2.11.6",
-    "puppeteer-extra-plugin-stealth": "^2.5.0"
+    "puppeteer-extra-plugin-stealth": "^2.5.0",
+    "uuid": "^8.3.0",
+    "winston": "^3.3.3"
   }
 }

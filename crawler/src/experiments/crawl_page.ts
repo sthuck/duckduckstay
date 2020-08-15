@@ -1,8 +1,8 @@
-import {startPupeteerCluster, shutdownCluster, processWebpage} from '../crawling';
+import { startPuppeteerCluster, shutdownCluster, crawlWebpage } from '../crawling';
 
 async function main() {
-    await startPupeteerCluster();
-    const output = await processWebpage({url: 'https://en.wikipedia.org/wiki/Main_Page'});
+    await startPuppeteerCluster();
+    const output = await crawlWebpage({ url: 'https://en.wikipedia.org/wiki/Main_Page' });
     console.log(output);
     await shutdownCluster();
 }
