@@ -7,19 +7,10 @@ import { range } from 'lodash';
 import { loggerFactory } from './logger';
 import { EventEmitter } from 'events';
 import { Client as EsClient } from '@elastic/elasticsearch';
+import { CachedMetricReporter } from './metrics';
 
 const ES_INDEX = 'webpages';
 const MAX_CONCURRENCY = process.env.MAX_CONCURRENCY ? parseInt(process.env.MAX_CONCURRENCY, 10) : 4;
-
-
-async function worker(workerId: number, esConfig: EsConfig) {
-  const processLink = processLinkFactory(workerId);
-
-  while (true) {
-    const msg = await waitUntilReceiveMessage<DownloadWebpageInput>();
-    await processLink(esConfig, msg);
-  }
-}
 
 export enum DriverEvents {
   INIT = 'INIT',
@@ -29,6 +20,7 @@ export enum DriverEvents {
 export class Driver extends EventEmitter {
   private logger = loggerFactory('driver');
   private esConfig: EsConfig;
+  private cachedMetricReporter = new CachedMetricReporter();
 
   constructor() {
     super();
@@ -52,13 +44,30 @@ export class Driver extends EventEmitter {
 
   start() {
     this.logger.info(`starting ${MAX_CONCURRENCY} workers`);
+    range(MAX_CONCURRENCY).forEach((i) =>
+      this.worker(i));
+  }
 
-    range(MAX_CONCURRENCY).forEach((i) => worker(i, this.esConfig));
+  private async worker(workerId: number) {
+    const processLink = processLinkFactory(workerId, this.cachedMetricReporter);
+
+    while (true) {
+      try {
+        const msg = await waitUntilReceiveMessage<DownloadWebpageInput>();
+        await processLink(this.esConfig, msg);
+      } catch (e) {
+        this.logger.error(e);
+      }
+    }
+
   }
 
   async shutdown() {
     this.logger.info('shutting down...');
+
     await shutdownCluster();
+    await this.cachedMetricReporter.flush();
+
     const listeners = this.rawListeners(DriverEvents.SHUTDOWN);
     await Promise.all(listeners.map(fn => fn()));
     process.exit();

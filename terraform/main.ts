@@ -1,7 +1,7 @@
 import {Construct} from 'constructs';
 import {App, TerraformStack, TerraformOutput} from 'cdktf';
-import {SqsQueue, DataAwsSqsQueue} from './.gen/providers/aws';
-import {sqsQueueName} from './consts';
+import {SqsQueue, DataAwsSqsQueue, CloudwatchLogGroup} from './.gen/providers/aws';
+import {sqsQueueName, cloudwatchLogGroup} from './consts';
 
 class MyStack extends TerraformStack {
   constructor(scope: Construct, name: string) {
@@ -17,6 +17,8 @@ class MyStack extends TerraformStack {
     new TerraformOutput(this, 'sqsQueueAddress', {
       value: queueData.url,
     });
+
+    new CloudwatchLogGroup(this, cloudwatchLogGroup, {retentionInDays: 3, name: cloudwatchLogGroup});
   }
 }
 

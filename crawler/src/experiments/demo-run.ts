@@ -12,7 +12,7 @@ async function main() {
   const driver = new Driver();
   driver.on(DriverEvents.INIT, async () => {
     await purgeQueue();
-    const input: DownloadWebpageInput = { url: 'https://www.ynet.co.il' };
+    const input: DownloadWebpageInput = { url: 'https://www.reddit.com' };
     logger.info(`sending crawl request on url`, input);
     sendMessages([input]);
   });

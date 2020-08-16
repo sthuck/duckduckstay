@@ -3,19 +3,27 @@ import { indexWebpage, EsConfig } from "./IndexWebpage";
 import { sendMessages } from './sqs';
 import { uniq } from 'lodash';
 import { loggerFactory } from './logger';
+import { CachedMetricReporter } from "./metrics";
 
 
-export interface ProcessLinkInput {
+export type ProcessLinkInput = {
   url: string;
-}
+};
 
-export function processLinkFactory(workerId: number) {
+export function processLinkFactory(workerId: number, metricReporter: CachedMetricReporter) {
   const logger = loggerFactory(`worker_${workerId}`);
+
   return async (es: EsConfig, input: ProcessLinkInput): Promise<void> => {
     logger.info(`got url: ${input.url}`);
+
     const rawWebpage = await downloadWebpage({
       url: input.url
+    }).catch(e => {
+      logger.error(`error in worker ${workerId}, url: ${input.url}`);
+      throw e;
     });
+
+    metricReporter.reportCrawl(input.url);
 
     const webpage = cleanupDownloadedWebpage(rawWebpage);
 
@@ -23,7 +31,7 @@ export function processLinkFactory(workerId: number) {
       webpage: webpage
     });
 
-    const linksToSqs: ProcessLinkInput[] = webpage.links.map(({ url }) => ({ url }));
+    const linksToSqs: ProcessLinkInput[] = uniq(webpage.links.map(({ url }) => url)).map(url => ({ url }));
     await sendMessages(linksToSqs);
   };
 }

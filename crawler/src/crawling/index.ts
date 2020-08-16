@@ -35,7 +35,7 @@ export async function startPuppeteerCluster(maxConcurrency: number = MAX_CONCURR
 
   await cluster.task(async ({ page, data }: { page: Page, data: Wrapped; }) => {
     const { input, output } = data;
-    await page.goto(input.url, { waitUntil: 'networkidle0' }); //TODO - maybe change this?
+    await page.goto(input.url, { waitUntil: 'domcontentloaded' }); //TODO - maybe change this?
     output.title = await page.title();
     output.headings = (await page.$$eval('h1, h2, h3',
       hElements => hElements.map(el => el.textContent))).filter(isDefined);
