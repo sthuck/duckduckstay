@@ -3,12 +3,9 @@ import { config } from '../aws-config';
 import { v4 } from 'uuid';
 import { chunk, flatten } from 'lodash';
 import util from 'util';
+import { envConfig } from '../env-config';
 
-const QueueUrl = process.env.SQS_URL;
-if (!QueueUrl) {
-  throw new Error('Missing sqs url');
-}
-
+const QueueUrl = envConfig.sqsUrl;
 const sqs = new SQS(config);
 
 

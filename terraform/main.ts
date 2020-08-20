@@ -1,7 +1,7 @@
 import {Construct} from 'constructs';
 import {App, TerraformStack, TerraformOutput} from 'cdktf';
-import {SqsQueue, DataAwsSqsQueue, CloudwatchLogGroup} from './.gen/providers/aws';
-import {sqsQueueName, cloudwatchLogGroup} from './consts';
+import {SqsQueue, DataAwsSqsQueue, CloudwatchLogGroup, DynamodbTable} from './.gen/providers/aws';
+import {sqsQueueName, cloudwatchLogGroup, dynamoDbTableName} from './consts';
 
 class MyStack extends TerraformStack {
   constructor(scope: Construct, name: string) {
@@ -19,6 +19,17 @@ class MyStack extends TerraformStack {
     });
 
     new CloudwatchLogGroup(this, cloudwatchLogGroup, {retentionInDays: 3, name: cloudwatchLogGroup});
+
+    const dynamoDbTable = new DynamodbTable(this, dynamoDbTableName, {
+      name: dynamoDbTableName,
+      hashKey: 'urlHash',
+      billingMode: 'PAY_PER_REQUEST',
+      attribute: [{name: 'urlHash', type: 'B'}],
+    });
+
+    new TerraformOutput(this, 'dynamoDbTableName', {
+      value: dynamoDbTable.name,
+    });
   }
 }
 

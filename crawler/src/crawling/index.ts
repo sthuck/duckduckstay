@@ -7,9 +7,9 @@ import Stealth from 'puppeteer-extra-plugin-stealth';
 import AdblockerPlugin from 'puppeteer-extra-plugin-adblocker';
 import { DownloadWebpageInput, DownloadWebpageOutput } from '../DownloadWebpage';
 import { isDefined } from '../utils';
+import { envConfig } from '../env-config';
 
-const MAX_CONCURRENCY = process.env.MAX_CONCURRENCY ? parseInt(process.env.MAX_CONCURRENCY, 10) : 4;
-const HEADLESS = !!process.env.HEADLESS;
+const { maxConcurrency: maxConcurrencyDefault, headless } = envConfig;
 
 let cluster: Cluster;
 
@@ -18,7 +18,7 @@ interface Wrapped {
   output: DownloadWebpageOutput,
 }
 
-export async function startPuppeteerCluster(maxConcurrency: number = MAX_CONCURRENCY) {
+export async function startPuppeteerCluster(maxConcurrency: number = maxConcurrencyDefault) {
   const puppeteer = addExtra(vanillaPuppeteer);
   puppeteer.use(Stealth());
   puppeteer.use(AdblockerPlugin({ blockTrackers: true }));
@@ -28,7 +28,8 @@ export async function startPuppeteerCluster(maxConcurrency: number = MAX_CONCURR
     puppeteer,
     maxConcurrency,
     puppeteerOptions: {
-      headless: HEADLESS, args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage']
+      headless,
+      args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage']
     },
     concurrency: Cluster.CONCURRENCY_PAGE
   });

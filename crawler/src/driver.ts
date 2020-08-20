@@ -8,9 +8,10 @@ import { loggerFactory } from './logger';
 import { EventEmitter } from 'events';
 import { Client as EsClient } from '@elastic/elasticsearch';
 import { CachedMetricReporter } from './metrics';
+import { envConfig } from './env-config';
+const { maxConcurrency, es: ES } = envConfig;
 
 const ES_INDEX = 'webpages';
-const MAX_CONCURRENCY = process.env.MAX_CONCURRENCY ? parseInt(process.env.MAX_CONCURRENCY, 10) : 4;
 
 export enum DriverEvents {
   INIT = 'INIT',
@@ -24,11 +25,6 @@ export class Driver extends EventEmitter {
 
   constructor() {
     super();
-    const ES = process.env['ES'];
-    if (!ES) {
-      throw new Error("ES env var required");
-    }
-
     const client = new EsClient({ node: ES });
     this.esConfig = {
       client,
@@ -37,14 +33,14 @@ export class Driver extends EventEmitter {
   }
 
   async init() {
-    await startPuppeteerCluster(MAX_CONCURRENCY);
+    await startPuppeteerCluster(maxConcurrency);
     this.emit(DriverEvents.INIT);
     process.on('SIGINT', this.shutdown.bind(this));
   }
 
   start() {
-    this.logger.info(`starting ${MAX_CONCURRENCY} workers`);
-    range(MAX_CONCURRENCY).forEach((i) =>
+    this.logger.info(`starting ${maxConcurrency} workers`);
+    range(maxConcurrency).forEach((i) =>
       this.worker(i));
   }
 
