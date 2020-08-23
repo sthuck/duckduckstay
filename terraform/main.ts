@@ -24,6 +24,7 @@ class MyStack extends TerraformStack {
       name: dynamoDbTableName,
       hashKey: 'urlHash',
       billingMode: 'PAY_PER_REQUEST',
+      ttl: [{attributeName: 'expiredWhen', enabled: true}],
       attribute: [{name: 'urlHash', type: 'B'}],
     });
 
