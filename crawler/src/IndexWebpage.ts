@@ -1,10 +1,6 @@
 import { Client } from '@elastic/elasticsearch';
 import { DownloadWebpageOutput } from './DownloadWebpage';
-
-export interface EsConfig {
-  client: Client;
-  index: string;
-}
+import { EsConfig } from './es_client';
 
 export interface IndexWebpageInput {
   webpage: DownloadWebpageOutput;
