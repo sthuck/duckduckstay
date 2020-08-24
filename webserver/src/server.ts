@@ -15,7 +15,7 @@ export function startServer(port: number): void {
         } catch (err) {
             internalServerError(res, err);
         }
-    })
+    });
 
     app.get('/search', async (req, res) => {
         try {
@@ -35,11 +35,26 @@ export function startServer(port: number): void {
         } catch (err) {
             internalServerError(res, err);
         }
-    })
+    });
+    app.get('/api/search', async (req, res) => {
+        try {
+            const searchQuery = req.query["search"];
+
+            if (typeof searchQuery !== "string") {
+                res.status(307).location("/");
+                return;
+            }
+
+            const searchResults = await searchEs(es, searchQuery);
+            res.json(searchResults);
+        } catch (err) {
+            internalServerError(res, err);
+        }
+    });
 
     app.listen(port, () => {
-        console.log(`Example app listening at http://localhost:${port}`)
-    })
+        console.log(`Example app listening at http://localhost:${port}`);
+    });
 }
 
 function internalServerError(res: express.Response<unknown>, err: any): void {

@@ -1,33 +1,18 @@
-import { Client } from '@elastic/elasticsearch';
-import { envConfig } from './env-config';
-const { es: ES } = envConfig;
+import dotenv from 'dotenv';
+import { Driver, DriverEvents } from './driver';
+import { loggerFactory } from './logger';
+dotenv.config();
 
-const client = new Client({ node: ES });
-
+const logger = loggerFactory('main');
 async function main() {
-  // await client.index({
-  //     index: 'game-of-thrones',
-  //     body: {
-  //         character: 'Ned Stark',
-  //         quote: 'Winter is coming.'
-  //     }
-  // })
+  const driver = new Driver();
 
-  // here we are forcing an index refresh, otherwise we will not
-  // get any result in the consequent search
-  await client.indices.refresh({ index: 'game-of-thrones' });
-
-  // Let's search!
-  const { body } = await client.search({
-    index: 'game-of-thrones',
-    body: {
-      query: {
-        match: { quote: 'Ned' }
-      }
-    }
+  driver.on(DriverEvents.SHUTDOWN, async () => {
+    // await purgeQueue();
   });
 
-  console.log(body.hits.hits);
+  await driver.init();
+  driver.start();
 }
 
-main();
+main().catch(logger.error.bind(logger));

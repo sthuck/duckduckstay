@@ -39,7 +39,7 @@ export const loggerFactory = (area: string) => createLogger({
       logGroupName: 'crawlers',//TODO: put in var
       logStreamName: hostname,
       awsRegion: config.region,
-      // level: 'warn'
+      level: 'warn'
     })
   ]
 });

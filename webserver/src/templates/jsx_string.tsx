@@ -1,5 +1,5 @@
 export namespace React {
-    export function createElement(tag: string, attrs: { [index: string]: string } | null, ...children: Child[]): Elem {
+    export function createElement(tag: string, attrs: {[index: string]: string;} | null, ...children: Child[]): Elem {
         let html: string = "";
 
         if (attrs === null) {
@@ -11,7 +11,7 @@ export namespace React {
                 html += `${key}="${attrs[key]}" `;
             }
 
-            html += ">"
+            html += ">";
         }
 
         for (const child of children) {
@@ -39,7 +39,7 @@ function renderChild(child: Child): string {
 type Child = Elem | string | number | boolean | null | undefined | Child[];
 
 export class Elem {
-    constructor(public readonly html: string) { }
+    constructor(public readonly html: string) {}
 }
 
 function escapeHtml(unsafe: string): string {

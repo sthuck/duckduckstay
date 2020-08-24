@@ -4,7 +4,7 @@ import { sendMessages } from './sqs';
 import { uniq } from 'lodash';
 import { loggerFactory } from './logger';
 import { CachedMetricReporter } from "./metrics";
-
+import { isUrlMarkedAsDone, markUrlAsDone } from './url-tracking';
 
 export type ProcessLinkInput = {
   url: string;
@@ -15,6 +15,11 @@ export function processLinkFactory(workerId: number, metricReporter: CachedMetri
 
   return async (es: EsConfig, input: ProcessLinkInput): Promise<void> => {
     logger.info(`got url: ${input.url}`);
+    const isDone = await isUrlMarkedAsDone(input.url);
+
+    if (isDone) {
+      return;
+    }
 
     const rawWebpage = await downloadWebpage({
       url: input.url
@@ -32,6 +37,6 @@ export function processLinkFactory(workerId: number, metricReporter: CachedMetri
     });
 
     const linksToSqs: ProcessLinkInput[] = uniq(webpage.links.map(({ url }) => url)).map(url => ({ url }));
-    await sendMessages(linksToSqs);
+    await Promise.all([markUrlAsDone(input.url), sendMessages(linksToSqs)]);
   };
 }
