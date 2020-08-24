@@ -7,6 +7,7 @@ export interface SearchResults {
 export interface WebpageResult {
     url: string;
     title: string;
+    screenshotUrl: string;
     snippets: string[];
 }
 
@@ -15,11 +16,13 @@ export const exampleSearchResults: SearchResults = {
         {
             url: "http://foo",
             title: "foo",
+            screenshotUrl: "https://placekitten.com/144/144",
             snippets: ["foo1 foo1", "foo2 foo2"]
         },
         {
             url: "http://blah",
             title: "blah",
+            screenshotUrl: "https://placekitten.com/144/144",
             snippets: ["blah1 blah1", "blah2 blah2"]
         }
     ]
@@ -82,6 +85,7 @@ function processHit(hitRaw: any): WebpageResult {
     return {
         url: hit.doc.url,
         title: hit.doc.title,
+        screenshotUrl: "https://placekitten.com/144/144", // TODO !!!
         snippets: snippets
     };
 }

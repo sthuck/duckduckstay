@@ -57,14 +57,21 @@ export function renderSearchResults(ctx: SearchResultsContext): JSX.Element {
 
 function renderWebpageResult(rank: number, result: WebpageResult): JSX.Element {
     return (
-        <div>
-            <h3>{rank}. <a href={result.url}>{result.title}</a></h3>
-            <small><pre>{result.url}</pre></small>
-            <ul>
-                {result.snippets.map(snippet => (
-                    <li>{snippet}</li>
-                ))}
-            </ul>
-        </div>
+        <table cellPadding="4">
+            <tr>
+                <td valign="top">
+                    <a href={result.url}><img src={result.screenshotUrl} /></a>
+                </td>
+                <td valign="top">
+                    <h3>{rank}. <a href={result.url}>{result.title}</a></h3>
+                    <small><pre>{result.url}</pre></small>
+                    <ul>
+                        {result.snippets.map(snippet => (
+                            <li>{snippet}</li>
+                        ))}
+                    </ul>
+                </td>
+            </tr>
+        </table>
     );
 }
