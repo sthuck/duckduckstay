@@ -1,10 +1,11 @@
 import { downloadWebpage, cleanupDownloadedWebpage } from "./DownloadWebpage";
 import { indexWebpage, EsConfig } from "./IndexWebpage";
-import { sendMessages } from './sqs';
+import { sendMessages, getQueueSize } from './sqs';
 import { uniq } from 'lodash';
 import { loggerFactory } from './logger';
 import { CachedMetricReporter } from "./metrics";
 import { isUrlMarkedAsDone, markUrlAsDone } from './url-tracking';
+import { envConfig } from './env-config';
 
 export type ProcessLinkInput = {
   url: string;
@@ -36,7 +37,8 @@ export function processLinkFactory(workerId: number, metricReporter: CachedMetri
       webpage: webpage
     });
 
-    const linksToSqs: ProcessLinkInput[] = uniq(webpage.links.map(({ url }) => url)).map(url => ({ url }));
+    const linksToSqs: ProcessLinkInput[] = uniq(webpage.links.map(({ url }) => url).map(url => ({ url })))
+      .slice(0, envConfig.maxLinksFromPage);
     await Promise.all([markUrlAsDone(input.url), sendMessages(linksToSqs)]);
   };
 }

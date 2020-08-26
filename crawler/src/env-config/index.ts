@@ -32,4 +32,7 @@ export const envConfig = {
   sqsUrl: parseOne('SQS_URL', parseString),
   awsRegion: parseOne('AWS_REGION', parseString),
   dynamoDbTable: parseOne('DYNAMO_DB_TABLE', parseString),
+  maxLinksFromPage: parseOne('MAX_LINKS_FROM_PAGE', parseNumber, 5),
+  maxSqsQueueSize: parseOne('MAX_SQS_QUEUE_SIZE', parseNumber, 50000),
+  checkSqsSizeInterval: parseOne('CHECK_SQS_SIZE_INTERVAL_MINUTES', parseNumber, 5),
 };

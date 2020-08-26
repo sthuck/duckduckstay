@@ -1,14 +1,14 @@
-import { shutdownCluster, startPuppeteerCluster } from './crawling';
-import { waitUntilReceiveMessage, sendMessages, purgeQueue } from './sqs';
-import { DownloadWebpageInput } from './DownloadWebpage';
-import { processLinkFactory } from './ProcessLink';
-import { EsConfig } from './IndexWebpage';
-import { range } from 'lodash';
-import { loggerFactory } from './logger';
-import { EventEmitter } from 'events';
 import { Client as EsClient } from '@elastic/elasticsearch';
-import { CachedMetricReporter } from './metrics';
+import { EventEmitter } from 'events';
+import { range } from 'lodash';
+import { shutdownCluster, startPuppeteerCluster } from './crawling';
+import { DownloadWebpageInput } from './DownloadWebpage';
 import { envConfig } from './env-config';
+import { EsConfig } from './IndexWebpage';
+import { loggerFactory } from './logger';
+import { CachedMetricReporter } from './metrics';
+import { processLinkFactory } from './ProcessLink';
+import { initSqs, waitUntilReceiveMessage } from './sqs';
 const { maxConcurrency, es: ES } = envConfig;
 
 const ES_INDEX = 'webpages';
@@ -34,6 +34,7 @@ export class Driver extends EventEmitter {
 
   async init() {
     await startPuppeteerCluster(maxConcurrency);
+    initSqs();
     this.emit(DriverEvents.INIT);
     process.on('SIGINT', this.shutdown.bind(this));
   }

@@ -41,12 +41,17 @@ export async function startPuppeteerCluster(maxConcurrency: number = maxConcurre
     output.headings = (await page.$$eval('h1, h2, h3',
       hElements => hElements.map(el => el.textContent))).filter(isDefined);
 
-    output.links = await page.$$eval('a',
+    output.links = (await page.$$eval('a',
       aElements => aElements.map(el => {
         const anchorText = el.textContent || '';
+        const nofollow = el.attributes.getNamedItem('rel')?.value?.includes('nofollow');
         const url = (el as HTMLAnchorElement).href;
-        return { anchorText, url };
-      }));
+        const isJsAction = (url.includes('javascript:void(0)'));
+
+        if (!nofollow && !isJsAction) {
+          return { anchorText, url };
+        }
+      }))).filter(<T>(e: T | undefined): e is T => !!e);
 
     output.html = await page.evaluate(() => document.body.innerHTML);
     output.bodyText = await page.evaluate(() => document.body.innerText);
