@@ -1,0 +1,30 @@
+.search-result {
+  display: flex !important;
+  overflow: hidden;
+  padding: 8px;
+}
+
+.search-result > img {
+  height: 192px;
+  width: 192px;
+  align-self: center;
+}
+.search-result-content {
+  padding: 6px;
+  display: flex !important;
+  flex-direction: column;
+  overflow: hidden;
+  height: 200px;
+}
+.search-result-title {
+  flex: 0 0 auto;
+  white-space: nowrap;
+  overflow: hidden; 
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.search-result-snippets {
+  flex: 1 0;
+  overflow: hidden;
+}
