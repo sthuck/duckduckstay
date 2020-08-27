@@ -78,8 +78,10 @@ function processHit(hitRaw: any): WebpageResult {
     const hit = parseHit(hitRaw);
 
     let snippets: string[] = [];
+    if (hit.highlight) {
     for (const key of Object.keys(hit.highlight)) {
         snippets = snippets.concat(hit.highlight[key]);
+    }
     }
 
     return {
