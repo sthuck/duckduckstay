@@ -18,6 +18,7 @@ export interface DownloadWebpageOutput {
     headings: string[];
     links: WebpageLink[];
     bodyText: string;
+    screenshot: Buffer | null;
 }
 
 export type DownloadWebpage = (input: DownloadWebpageInput) => Promise<DownloadWebpageOutput>;

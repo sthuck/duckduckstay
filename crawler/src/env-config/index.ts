@@ -29,6 +29,7 @@ export const envConfig = {
   maxConcurrency: parseOne('MAX_CONCURRENCY', parseNumber, 4),
   headless: parseOne('HEADLESS', parseBoolean, false),
   es: parseOne('ES', parseString),
+  screenshotsS3Bucket: parseOne('SCREENSHOTS_S3_BUCKET', parseString),
   sqsUrl: parseOne('SQS_URL', parseString),
   awsRegion: parseOne('AWS_REGION', parseString),
   dynamoDbTable: parseOne('DYNAMO_DB_TABLE', parseString),

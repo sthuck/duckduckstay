@@ -39,5 +39,6 @@ function parseBody(url: string, body: string): DownloadWebpageOutput {
         links: links,
         bodyText: bodyText,
         html: body,
+        screenshot: null
     };
 }

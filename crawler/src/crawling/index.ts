@@ -55,7 +55,13 @@ export async function startPuppeteerCluster(maxConcurrency: number = maxConcurre
 
     output.html = await page.evaluate(() => document.body.innerHTML);
     output.bodyText = await page.evaluate(() => document.body.innerText);
-    output.canonicalUrl = await page.url();
+    output.canonicalUrl = page.url();
+
+    output.screenshot = await page.screenshot({
+      encoding: "binary",
+      type: "png"
+    });
+
     //  const el = await page.$eval("link[rel='canonical']", el => el.getAttribute('href'));
   });
 }

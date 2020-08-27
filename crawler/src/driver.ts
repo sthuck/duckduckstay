@@ -9,7 +9,7 @@ import { loggerFactory } from './logger';
 import { CachedMetricReporter } from './metrics';
 import { processLinkFactory } from './ProcessLink';
 import { initSqs, waitUntilReceiveMessage } from './sqs';
-const { maxConcurrency, es: ES } = envConfig;
+const { maxConcurrency, es: ES, screenshotsS3Bucket } = envConfig;
 
 const ES_INDEX = 'webpages';
 
@@ -21,6 +21,7 @@ export enum DriverEvents {
 export class Driver extends EventEmitter {
   private logger = loggerFactory('driver');
   private esConfig: EsConfig;
+  private screenshotsS3Bucket: string;
   private cachedMetricReporter = new CachedMetricReporter();
 
   constructor() {
@@ -30,6 +31,7 @@ export class Driver extends EventEmitter {
       client,
       index: ES_INDEX
     };
+    this.screenshotsS3Bucket = screenshotsS3Bucket;
   }
 
   async init() {
@@ -51,7 +53,7 @@ export class Driver extends EventEmitter {
     while (true) {
       try {
         const msg = await waitUntilReceiveMessage<DownloadWebpageInput>();
-        await processLink(this.esConfig, msg);
+        await processLink(this.esConfig, this.screenshotsS3Bucket, msg);
       } catch (e) {
         this.logger.error(e);
       }

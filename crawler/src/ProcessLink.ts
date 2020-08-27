@@ -6,6 +6,7 @@ import { loggerFactory } from './logger';
 import { CachedMetricReporter } from "./metrics";
 import { isUrlMarkedAsDone, markUrlAsDone } from './url-tracking';
 import { envConfig } from './env-config';
+import { saveWebpageScreenshot } from "./SaveWebpageScreenshot";
 
 export type ProcessLinkInput = {
   url: string;
@@ -14,7 +15,7 @@ export type ProcessLinkInput = {
 export function processLinkFactory(workerId: number, metricReporter: CachedMetricReporter) {
   const logger = loggerFactory(`worker_${workerId}`);
 
-  return async (es: EsConfig, input: ProcessLinkInput): Promise<void> => {
+  return async (es: EsConfig, s3Bucket: string, input: ProcessLinkInput): Promise<void> => {
     logger.info(`got url: ${input.url}`);
     const isDone = await isUrlMarkedAsDone(input.url);
 
@@ -33,9 +34,15 @@ export function processLinkFactory(workerId: number, metricReporter: CachedMetri
 
     const webpage = cleanupDownloadedWebpage(rawWebpage);
 
-    await indexWebpage(es, {
+    const saveWebpageScreenAction: Promise<void> = webpage.screenshot !== null
+      ? saveWebpageScreenshot(s3Bucket, webpage.canonicalUrl, webpage.screenshot)
+      : Promise.resolve();
+
+    const indexWebpageAction: Promise<void> = indexWebpage(es, {
       webpage: webpage
     });
+
+    await Promise.all([saveWebpageScreenAction, indexWebpageAction]);
 
     const linksToSqs: ProcessLinkInput[] = uniq(webpage.links.map(({ url }) => url).map(url => ({ url })))
       .slice(0, envConfig.maxLinksFromPage);

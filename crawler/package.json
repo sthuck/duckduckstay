@@ -7,7 +7,7 @@
   "private": true,
   "scripts": {
     "build": "tsc -p .",
-    "start": "node index.js"
+    "start": "node -r source-map-support/register index.js"
   },
   "devDependencies": {
     "source-map-support": "^0.5.19",
@@ -25,6 +25,7 @@
     "cheerio": "^1.0.0-rc.3",
     "dotenv": "^8.2.0",
     "got": "^11.5.2",
+    "jimp": "^0.16.0",
     "lodash": "^4.17.20",
     "puppeteer": "^5.2.1",
     "puppeteer-cluster": "^0.22.0",
