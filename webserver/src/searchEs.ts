@@ -1,17 +1,17 @@
 import { EsConfig } from "./es_client";
 
-export interface SearchResults {
-    results: WebpageResult[];
+export interface SearchResults<ScreenshotT> {
+    results: WebpageResult<ScreenshotT>[];
 }
 
-export interface WebpageResult {
+export interface WebpageResult<ScreenshotT> {
     url: string;
     title: string;
-    screenshotUrl: string;
+    screenshotUrl: ScreenshotT;
     snippets: string[];
 }
 
-export const exampleSearchResults: SearchResults = {
+export const exampleSearchResults: SearchResults<string> = {
     results: [
         {
             url: "http://foo",
@@ -28,7 +28,7 @@ export const exampleSearchResults: SearchResults = {
     ]
 };
 
-export async function searchEs(es: EsConfig, query: string): Promise<SearchResults> {
+export async function searchEs(es: EsConfig, query: string): Promise<SearchResults<{}>> {
     const rsp = await es.client.search({
         body: {
             query: {
@@ -74,20 +74,20 @@ function parseHit(hit: any): SearchHit {
     }
 }
 
-function processHit(hitRaw: any): WebpageResult {
+function processHit(hitRaw: any): WebpageResult<{}> {
     const hit = parseHit(hitRaw);
 
     let snippets: string[] = [];
     if (hit.highlight) {
-    for (const key of Object.keys(hit.highlight)) {
-        snippets = snippets.concat(hit.highlight[key]);
-    }
+        for (const key of Object.keys(hit.highlight)) {
+            snippets = snippets.concat(hit.highlight[key]);
+        }
     }
 
     return {
         url: hit.doc.url,
         title: hit.doc.title,
-        screenshotUrl: "https://placekitten.com/144/144", // TODO !!!
+        screenshotUrl: {},
         snippets: snippets
     };
 }

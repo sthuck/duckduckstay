@@ -1,8 +1,10 @@
 import express from "express";
 import { stringify } from "./templates/jsx_string";
 import { renderSearchForm, renderSearchResults } from "./templates/searchForm";
-import { searchEs } from "./searchEs";
+import { searchEs, SearchResults } from "./searchEs";
 import { getEsConfig } from "./es_client";
+import { fillScreenshotUrls } from "./result_screenshots";
+import { getScreenshotsS3Bucket } from "./cfg";
 
 export function startServer(port: number): void {
     const es = getEsConfig();
@@ -17,6 +19,12 @@ export function startServer(port: number): void {
         }
     });
 
+    async function performSearch(searchQuery: string): Promise<SearchResults<string>> {
+        const searchResults = await searchEs(es, searchQuery);
+        const searchResultsWithScreenshots = await fillScreenshotUrls(getScreenshotsS3Bucket(), searchResults);
+        return searchResultsWithScreenshots;
+    }
+
     app.get('/search', async (req, res) => {
         try {
             const searchQuery = req.query["search"];
@@ -26,7 +34,7 @@ export function startServer(port: number): void {
                 return;
             }
 
-            const searchResults = await searchEs(es, searchQuery);
+            const searchResults = await performSearch(searchQuery);
 
             res.send(stringify(renderSearchResults({
                 searchQuery: searchQuery,
@@ -45,7 +53,7 @@ export function startServer(port: number): void {
                 return;
             }
 
-            const searchResults = await searchEs(es, searchQuery);
+            const searchResults = await performSearch(searchQuery);
             res.json(searchResults);
         } catch (err) {
             internalServerError(res, err);
@@ -58,5 +66,6 @@ export function startServer(port: number): void {
 }
 
 function internalServerError(res: express.Response<unknown>, err: any): void {
+    console.error(err);
     res.status(500).contentType("text/plain").send(`Internal server error:\n\n${err.message}\n\n${err.stack}`);
 }

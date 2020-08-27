@@ -27,7 +27,7 @@ export function renderSearchForm(ctx: SearchFormContext): JSX.Element {
 
 export interface SearchResultsContext {
     searchQuery: string;
-    searchResults: SearchResults;
+    searchResults: SearchResults<string>;
 }
 
 export function renderSearchResults(ctx: SearchResultsContext): JSX.Element {
@@ -55,7 +55,7 @@ export function renderSearchResults(ctx: SearchResultsContext): JSX.Element {
     );
 }
 
-function renderWebpageResult(rank: number, result: WebpageResult): JSX.Element {
+function renderWebpageResult(rank: number, result: WebpageResult<string>): JSX.Element {
     return (
         <table cellPadding="4">
             <tr>
