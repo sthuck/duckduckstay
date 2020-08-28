@@ -1,36 +1,26 @@
+import {App, TerraformStack} from 'cdktf';
 import {Construct} from 'constructs';
-import {App, TerraformStack, TerraformOutput} from 'cdktf';
-import {SqsQueue, DataAwsSqsQueue, CloudwatchLogGroup, DynamodbTable} from './.gen/providers/aws';
-import {sqsQueueName, cloudwatchLogGroup, dynamoDbTableName} from './consts';
+import {AwsProvider} from './.gen/providers/aws';
+import {registerAppEnv} from './app-env';
+import {registerBuildEnv} from './build-env';
+import {RegisterECS} from './ecs';
 
 class MyStack extends TerraformStack {
   constructor(scope: Construct, name: string) {
     super(scope, name);
 
-    new SqsQueue(this, sqsQueueName, {
-      name: sqsQueueName,
-      maxMessageSize: 64 * 1024,
-      visibilityTimeoutSeconds: 120,
+    new AwsProvider(this, 'aws', {
+      region: 'us-east-1'
     });
-    const queueData = new DataAwsSqsQueue(this, 'data_' + sqsQueueName, {name: sqsQueueName});
+    const azs = ['us-east-1a', 'us-east-1e', 'us-east-1f'];
 
-    new TerraformOutput(this, 'sqsQueueAddress', {
-      value: queueData.url,
-    });
+    /** APP ENV */
+    const {sqs, dynamoDbTable, esCluster, subnets, ecsWorkerSg, ecsWorkerRole} = registerAppEnv(this, azs);
 
-    new CloudwatchLogGroup(this, cloudwatchLogGroup, {retentionInDays: 3, name: cloudwatchLogGroup});
+    /** BUILD ENV **/
+    const {ecrRepo} = registerBuildEnv(this);
 
-    const dynamoDbTable = new DynamodbTable(this, dynamoDbTableName, {
-      name: dynamoDbTableName,
-      hashKey: 'urlHash',
-      billingMode: 'PAY_PER_REQUEST',
-      ttl: [{attributeName: 'expiredWhen', enabled: true}],
-      attribute: [{name: 'urlHash', type: 'B'}],
-    });
-
-    new TerraformOutput(this, 'dynamoDbTableName', {
-      value: dynamoDbTable.name,
-    });
+    RegisterECS(this, ecsWorkerRole, ecsWorkerSg, subnets, sqs, esCluster, dynamoDbTable, ecrRepo);
   }
 }
 

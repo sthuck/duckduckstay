@@ -1,0 +1,1348 @@
+{
+  "//": {
+    "metadata": {
+      "version": "0.0.16",
+      "stackName": "duckduckstay"
+    }
+  },
+  "terraform": {
+    "required_providers": {
+      "aws": {
+        "version": "~> 2.0",
+        "source": "aws"
+      }
+    }
+  },
+  "provider": {
+    "aws": [
+      {
+        "region": "us-east-1"
+      }
+    ]
+  },
+  "resource": {
+    "aws_sqs_queue": {
+      "duckduckstay_urlQueue_15E33B74": {
+        "max_message_size": 65536,
+        "name": "urlQueue",
+        "visibility_timeout_seconds": 120,
+        "//": {
+          "metadata": {
+            "path": "duckduckstay/urlQueue",
+            "uniqueId": "duckduckstay_urlQueue_15E33B74",
+            "stackTrace": [
+              "new TerraformElement (/home/aviadh/git/duckduckstay/terraform/node_modules/cdktf/lib/terraform-element.js:11:28)",
+              "new TerraformResource (/home/aviadh/git/duckduckstay/terraform/node_modules/cdktf/lib/terraform-resource.js:9:9)",
+              "new SqsQueue (/home/aviadh/git/duckduckstay/terraform/.gen/providers/aws/sqs-queue.js:13:9)",
+              "registerSqs (/home/aviadh/git/duckduckstay/terraform/app-env.js:79:19)",
+              "Object.exports.registerAppEnv (/home/aviadh/git/duckduckstay/terraform/app-env.js:10:17)",
+              "new MyStack (/home/aviadh/git/duckduckstay/terraform/main.js:17:98)",
+              "Object.<anonymous> (/home/aviadh/git/duckduckstay/terraform/main.js:110:1)",
+              "Module._compile (internal/modules/cjs/loader.js:959:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:995:10)",
+              "Module.load (internal/modules/cjs/loader.js:815:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:727:14)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:1047:10)",
+              "internal/main/run_main_module.js:17:11"
+            ]
+          }
+        }
+      }
+    },
+    "aws_cloudwatch_log_group": {
+      "duckduckstay_crawlers_6D9B526E": {
+        "name": "crawlers",
+        "retention_in_days": 3,
+        "//": {
+          "metadata": {
+            "path": "duckduckstay/crawlers",
+            "uniqueId": "duckduckstay_crawlers_6D9B526E",
+            "stackTrace": [
+              "new TerraformElement (/home/aviadh/git/duckduckstay/terraform/node_modules/cdktf/lib/terraform-element.js:11:28)",
+              "new TerraformResource (/home/aviadh/git/duckduckstay/terraform/node_modules/cdktf/lib/terraform-resource.js:9:9)",
+              "new CloudwatchLogGroup (/home/aviadh/git/duckduckstay/terraform/.gen/providers/aws/cloudwatch-log-group.js:13:9)",
+              "Object.exports.registerAppEnv (/home/aviadh/git/duckduckstay/terraform/app-env.js:11:5)",
+              "new MyStack (/home/aviadh/git/duckduckstay/terraform/main.js:17:98)",
+              "Object.<anonymous> (/home/aviadh/git/duckduckstay/terraform/main.js:110:1)",
+              "Module._compile (internal/modules/cjs/loader.js:959:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:995:10)",
+              "Module.load (internal/modules/cjs/loader.js:815:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:727:14)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:1047:10)",
+              "internal/main/run_main_module.js:17:11"
+            ]
+          }
+        }
+      }
+    },
+    "aws_dynamodb_table": {
+      "duckduckstay_urlHashTable_02A13B36": {
+        "billing_mode": "PAY_PER_REQUEST",
+        "hash_key": "urlHash",
+        "name": "urlHashTable",
+        "attribute": [
+          {
+            "name": "urlHash",
+            "type": "B"
+          }
+        ],
+        "ttl": [
+          {
+            "attribute_name": "expiredWhen",
+            "enabled": true
+          }
+        ],
+        "//": {
+          "metadata": {
+            "path": "duckduckstay/urlHashTable",
+            "uniqueId": "duckduckstay_urlHashTable_02A13B36",
+            "stackTrace": [
+              "new TerraformElement (/home/aviadh/git/duckduckstay/terraform/node_modules/cdktf/lib/terraform-element.js:11:28)",
+              "new TerraformResource (/home/aviadh/git/duckduckstay/terraform/node_modules/cdktf/lib/terraform-resource.js:9:9)",
+              "new DynamodbTable (/home/aviadh/git/duckduckstay/terraform/.gen/providers/aws/dynamodb-table.js:13:9)",
+              "registerDynamoDb (/home/aviadh/git/duckduckstay/terraform/app-env.js:66:27)",
+              "Object.exports.registerAppEnv (/home/aviadh/git/duckduckstay/terraform/app-env.js:12:27)",
+              "new MyStack (/home/aviadh/git/duckduckstay/terraform/main.js:17:98)",
+              "Object.<anonymous> (/home/aviadh/git/duckduckstay/terraform/main.js:110:1)",
+              "Module._compile (internal/modules/cjs/loader.js:959:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:995:10)",
+              "Module.load (internal/modules/cjs/loader.js:815:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:727:14)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:1047:10)",
+              "internal/main/run_main_module.js:17:11"
+            ]
+          }
+        }
+      }
+    },
+    "aws_vpc": {
+      "duckduckstay_duckduckNetwork_23E64E92": {
+        "cidr_block": "10.0.0.0/20",
+        "tags": {
+          "Name": "duckduckNetwork"
+        },
+        "//": {
+          "metadata": {
+            "path": "duckduckstay/duckduckNetwork",
+            "uniqueId": "duckduckstay_duckduckNetwork_23E64E92",
+            "stackTrace": [
+              "new TerraformElement (/home/aviadh/git/duckduckstay/terraform/node_modules/cdktf/lib/terraform-element.js:11:28)",
+              "new TerraformResource (/home/aviadh/git/duckduckstay/terraform/node_modules/cdktf/lib/terraform-resource.js:9:9)",
+              "new Vpc (/home/aviadh/git/duckduckstay/terraform/.gen/providers/aws/vpc.js:13:9)",
+              "Object.registerNetwork (/home/aviadh/git/duckduckstay/terraform/network.js:6:17)",
+              "Object.exports.registerAppEnv (/home/aviadh/git/duckduckstay/terraform/app-env.js:13:70)",
+              "new MyStack (/home/aviadh/git/duckduckstay/terraform/main.js:17:98)",
+              "Object.<anonymous> (/home/aviadh/git/duckduckstay/terraform/main.js:110:1)",
+              "Module._compile (internal/modules/cjs/loader.js:959:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:995:10)",
+              "Module.load (internal/modules/cjs/loader.js:815:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:727:14)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:1047:10)",
+              "internal/main/run_main_module.js:17:11"
+            ]
+          }
+        }
+      }
+    },
+    "aws_subnet": {
+      "duckduckstay_duckduckSubnet1_6E1CF87E": {
+        "availability_zone": "us-east-1a",
+        "cidr_block": "10.0.0.0/24",
+        "map_public_ip_on_launch": true,
+        "tags": {
+          "Name": "duckduckSubnet1"
+        },
+        "vpc_id": "${aws_vpc.duckduckstay_duckduckNetwork_23E64E92.id}",
+        "//": {
+          "metadata": {
+            "path": "duckduckstay/duckduckSubnet1",
+            "uniqueId": "duckduckstay_duckduckSubnet1_6E1CF87E",
+            "stackTrace": [
+              "new TerraformElement (/home/aviadh/git/duckduckstay/terraform/node_modules/cdktf/lib/terraform-element.js:11:28)",
+              "new TerraformResource (/home/aviadh/git/duckduckstay/terraform/node_modules/cdktf/lib/terraform-resource.js:9:9)",
+              "new Subnet (/home/aviadh/git/duckduckstay/terraform/.gen/providers/aws/subnet.js:13:9)",
+              "/home/aviadh/git/duckduckstay/terraform/network.js:11:24",
+              "Array.map (<anonymous>)",
+              "Object.registerNetwork (/home/aviadh/git/duckduckstay/terraform/network.js:10:39)",
+              "Object.exports.registerAppEnv (/home/aviadh/git/duckduckstay/terraform/app-env.js:13:70)",
+              "new MyStack (/home/aviadh/git/duckduckstay/terraform/main.js:17:98)",
+              "Object.<anonymous> (/home/aviadh/git/duckduckstay/terraform/main.js:110:1)",
+              "Module._compile (internal/modules/cjs/loader.js:959:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:995:10)",
+              "Module.load (internal/modules/cjs/loader.js:815:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:727:14)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:1047:10)",
+              "internal/main/run_main_module.js:17:11"
+            ]
+          }
+        }
+      },
+      "duckduckstay_duckduckSubnet2_C4CABE93": {
+        "availability_zone": "us-east-1e",
+        "cidr_block": "10.0.1.0/24",
+        "map_public_ip_on_launch": true,
+        "tags": {
+          "Name": "duckduckSubnet2"
+        },
+        "vpc_id": "${aws_vpc.duckduckstay_duckduckNetwork_23E64E92.id}",
+        "//": {
+          "metadata": {
+            "path": "duckduckstay/duckduckSubnet2",
+            "uniqueId": "duckduckstay_duckduckSubnet2_C4CABE93",
+            "stackTrace": [
+              "new TerraformElement (/home/aviadh/git/duckduckstay/terraform/node_modules/cdktf/lib/terraform-element.js:11:28)",
+              "new TerraformResource (/home/aviadh/git/duckduckstay/terraform/node_modules/cdktf/lib/terraform-resource.js:9:9)",
+              "new Subnet (/home/aviadh/git/duckduckstay/terraform/.gen/providers/aws/subnet.js:13:9)",
+              "/home/aviadh/git/duckduckstay/terraform/network.js:11:24",
+              "Array.map (<anonymous>)",
+              "Object.registerNetwork (/home/aviadh/git/duckduckstay/terraform/network.js:10:39)",
+              "Object.exports.registerAppEnv (/home/aviadh/git/duckduckstay/terraform/app-env.js:13:70)",
+              "new MyStack (/home/aviadh/git/duckduckstay/terraform/main.js:17:98)",
+              "Object.<anonymous> (/home/aviadh/git/duckduckstay/terraform/main.js:110:1)",
+              "Module._compile (internal/modules/cjs/loader.js:959:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:995:10)",
+              "Module.load (internal/modules/cjs/loader.js:815:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:727:14)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:1047:10)",
+              "internal/main/run_main_module.js:17:11"
+            ]
+          }
+        }
+      },
+      "duckduckstay_duckduckSubnet3_8E14345C": {
+        "availability_zone": "us-east-1f",
+        "cidr_block": "10.0.2.0/24",
+        "map_public_ip_on_launch": true,
+        "tags": {
+          "Name": "duckduckSubnet3"
+        },
+        "vpc_id": "${aws_vpc.duckduckstay_duckduckNetwork_23E64E92.id}",
+        "//": {
+          "metadata": {
+            "path": "duckduckstay/duckduckSubnet3",
+            "uniqueId": "duckduckstay_duckduckSubnet3_8E14345C",
+            "stackTrace": [
+              "new TerraformElement (/home/aviadh/git/duckduckstay/terraform/node_modules/cdktf/lib/terraform-element.js:11:28)",
+              "new TerraformResource (/home/aviadh/git/duckduckstay/terraform/node_modules/cdktf/lib/terraform-resource.js:9:9)",
+              "new Subnet (/home/aviadh/git/duckduckstay/terraform/.gen/providers/aws/subnet.js:13:9)",
+              "/home/aviadh/git/duckduckstay/terraform/network.js:11:24",
+              "Array.map (<anonymous>)",
+              "Object.registerNetwork (/home/aviadh/git/duckduckstay/terraform/network.js:10:39)",
+              "Object.exports.registerAppEnv (/home/aviadh/git/duckduckstay/terraform/app-env.js:13:70)",
+              "new MyStack (/home/aviadh/git/duckduckstay/terraform/main.js:17:98)",
+              "Object.<anonymous> (/home/aviadh/git/duckduckstay/terraform/main.js:110:1)",
+              "Module._compile (internal/modules/cjs/loader.js:959:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:995:10)",
+              "Module.load (internal/modules/cjs/loader.js:815:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:727:14)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:1047:10)",
+              "internal/main/run_main_module.js:17:11"
+            ]
+          }
+        }
+      }
+    },
+    "aws_security_group": {
+      "duckduckstay_elasticSearchSg_E674A06E": {
+        "egress": [
+          {
+            "cidr_blocks": [
+              "0.0.0.0/0"
+            ],
+            "from_port": 0,
+            "to_port": 0,
+            "protocol": "-1",
+            "description": "outgoing",
+            "ipv6_cidr_blocks": null,
+            "prefix_list_ids": null,
+            "security_groups": null,
+            "self": null
+          }
+        ],
+        "ingress": [
+          {
+            "cidr_blocks": [
+              "10.0.0.0/20"
+            ],
+            "protocol": "tcp",
+            "from_port": 9300,
+            "to_port": 9300,
+            "description": "es comm",
+            "ipv6_cidr_blocks": null,
+            "prefix_list_ids": null,
+            "security_groups": null,
+            "self": null
+          },
+          {
+            "cidr_blocks": [
+              "10.0.0.0/20"
+            ],
+            "protocol": "tcp",
+            "from_port": 9200,
+            "to_port": 9200,
+            "description": "es http",
+            "ipv6_cidr_blocks": null,
+            "prefix_list_ids": null,
+            "security_groups": null,
+            "self": null
+          }
+        ],
+        "name": "elasticSearchSg",
+        "vpc_id": "${aws_vpc.duckduckstay_duckduckNetwork_23E64E92.id}",
+        "//": {
+          "metadata": {
+            "path": "duckduckstay/elasticSearchSg",
+            "uniqueId": "duckduckstay_elasticSearchSg_E674A06E",
+            "stackTrace": [
+              "new TerraformElement (/home/aviadh/git/duckduckstay/terraform/node_modules/cdktf/lib/terraform-element.js:11:28)",
+              "new TerraformResource (/home/aviadh/git/duckduckstay/terraform/node_modules/cdktf/lib/terraform-resource.js:9:9)",
+              "new SecurityGroup (/home/aviadh/git/duckduckstay/terraform/.gen/providers/aws/security-group.js:13:9)",
+              "Object.registerNetwork (/home/aviadh/git/duckduckstay/terraform/network.js:20:29)",
+              "Object.exports.registerAppEnv (/home/aviadh/git/duckduckstay/terraform/app-env.js:13:70)",
+              "new MyStack (/home/aviadh/git/duckduckstay/terraform/main.js:17:98)",
+              "Object.<anonymous> (/home/aviadh/git/duckduckstay/terraform/main.js:110:1)",
+              "Module._compile (internal/modules/cjs/loader.js:959:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:995:10)",
+              "Module.load (internal/modules/cjs/loader.js:815:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:727:14)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:1047:10)",
+              "internal/main/run_main_module.js:17:11"
+            ]
+          }
+        }
+      },
+      "duckduckstay_ecsWorkerSg_BC7FE8D5": {
+        "egress": [
+          {
+            "cidr_blocks": [
+              "0.0.0.0/0"
+            ],
+            "from_port": 0,
+            "to_port": 0,
+            "protocol": "-1",
+            "description": "outgoing",
+            "ipv6_cidr_blocks": null,
+            "prefix_list_ids": null,
+            "security_groups": null,
+            "self": null
+          }
+        ],
+        "ingress": [
+          {
+            "cidr_blocks": [
+              "0.0.0.0/0"
+            ],
+            "protocol": "tcp",
+            "from_port": 22,
+            "to_port": 22,
+            "description": "ssh",
+            "ipv6_cidr_blocks": null,
+            "prefix_list_ids": null,
+            "security_groups": null,
+            "self": null
+          },
+          {
+            "cidr_blocks": [
+              "0.0.0.0/0"
+            ],
+            "protocol": "tcp",
+            "from_port": 2376,
+            "to_port": 2376,
+            "description": "docker",
+            "ipv6_cidr_blocks": null,
+            "prefix_list_ids": null,
+            "security_groups": null,
+            "self": null
+          }
+        ],
+        "name": "ecsWorkerSg",
+        "vpc_id": "${aws_vpc.duckduckstay_duckduckNetwork_23E64E92.id}",
+        "//": {
+          "metadata": {
+            "path": "duckduckstay/ecsWorkerSg",
+            "uniqueId": "duckduckstay_ecsWorkerSg_BC7FE8D5",
+            "stackTrace": [
+              "new TerraformElement (/home/aviadh/git/duckduckstay/terraform/node_modules/cdktf/lib/terraform-element.js:11:28)",
+              "new TerraformResource (/home/aviadh/git/duckduckstay/terraform/node_modules/cdktf/lib/terraform-resource.js:9:9)",
+              "new SecurityGroup (/home/aviadh/git/duckduckstay/terraform/.gen/providers/aws/security-group.js:13:9)",
+              "Object.registerNetwork (/home/aviadh/git/duckduckstay/terraform/network.js:51:25)",
+              "Object.exports.registerAppEnv (/home/aviadh/git/duckduckstay/terraform/app-env.js:13:70)",
+              "new MyStack (/home/aviadh/git/duckduckstay/terraform/main.js:17:98)",
+              "Object.<anonymous> (/home/aviadh/git/duckduckstay/terraform/main.js:110:1)",
+              "Module._compile (internal/modules/cjs/loader.js:959:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:995:10)",
+              "Module.load (internal/modules/cjs/loader.js:815:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:727:14)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:1047:10)",
+              "internal/main/run_main_module.js:17:11"
+            ]
+          }
+        }
+      }
+    },
+    "aws_internet_gateway": {
+      "duckduckstay_igw_42066460": {
+        "vpc_id": "${aws_vpc.duckduckstay_duckduckNetwork_23E64E92.id}",
+        "//": {
+          "metadata": {
+            "path": "duckduckstay/igw",
+            "uniqueId": "duckduckstay_igw_42066460",
+            "stackTrace": [
+              "new TerraformElement (/home/aviadh/git/duckduckstay/terraform/node_modules/cdktf/lib/terraform-element.js:11:28)",
+              "new TerraformResource (/home/aviadh/git/duckduckstay/terraform/node_modules/cdktf/lib/terraform-resource.js:9:9)",
+              "new InternetGateway (/home/aviadh/git/duckduckstay/terraform/.gen/providers/aws/internet-gateway.js:13:9)",
+              "Object.registerNetwork (/home/aviadh/git/duckduckstay/terraform/network.js:81:17)",
+              "Object.exports.registerAppEnv (/home/aviadh/git/duckduckstay/terraform/app-env.js:13:70)",
+              "new MyStack (/home/aviadh/git/duckduckstay/terraform/main.js:17:98)",
+              "Object.<anonymous> (/home/aviadh/git/duckduckstay/terraform/main.js:110:1)",
+              "Module._compile (internal/modules/cjs/loader.js:959:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:995:10)",
+              "Module.load (internal/modules/cjs/loader.js:815:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:727:14)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:1047:10)",
+              "internal/main/run_main_module.js:17:11"
+            ]
+          }
+        }
+      }
+    },
+    "aws_route_table": {
+      "duckduckstay_igwrt_421A09FF": {
+        "route": [
+          {
+            "cidr_block": "0.0.0.0/0",
+            "gateway_id": "${aws_internet_gateway.duckduckstay_igw_42066460.id}",
+            "egress_only_gateway_id": null,
+            "instance_id": null,
+            "ipv6_cidr_block": null,
+            "nat_gateway_id": null,
+            "network_interface_id": null,
+            "transit_gateway_id": null,
+            "vpc_peering_connection_id": null
+          }
+        ],
+        "vpc_id": "${aws_vpc.duckduckstay_duckduckNetwork_23E64E92.id}",
+        "//": {
+          "metadata": {
+            "path": "duckduckstay/igw-rt",
+            "uniqueId": "duckduckstay_igwrt_421A09FF",
+            "stackTrace": [
+              "new TerraformElement (/home/aviadh/git/duckduckstay/terraform/node_modules/cdktf/lib/terraform-element.js:11:28)",
+              "new TerraformResource (/home/aviadh/git/duckduckstay/terraform/node_modules/cdktf/lib/terraform-resource.js:9:9)",
+              "new RouteTable (/home/aviadh/git/duckduckstay/terraform/.gen/providers/aws/route-table.js:13:9)",
+              "Object.registerNetwork (/home/aviadh/git/duckduckstay/terraform/network.js:84:16)",
+              "Object.exports.registerAppEnv (/home/aviadh/git/duckduckstay/terraform/app-env.js:13:70)",
+              "new MyStack (/home/aviadh/git/duckduckstay/terraform/main.js:17:98)",
+              "Object.<anonymous> (/home/aviadh/git/duckduckstay/terraform/main.js:110:1)",
+              "Module._compile (internal/modules/cjs/loader.js:959:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:995:10)",
+              "Module.load (internal/modules/cjs/loader.js:815:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:727:14)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:1047:10)",
+              "internal/main/run_main_module.js:17:11"
+            ]
+          }
+        }
+      }
+    },
+    "aws_route_table_association": {
+      "duckduckstay_igwrtassoc0_27C0D15E": {
+        "route_table_id": "${aws_route_table.duckduckstay_igwrt_421A09FF.id}",
+        "subnet_id": "${aws_subnet.duckduckstay_duckduckSubnet1_6E1CF87E.id}",
+        "//": {
+          "metadata": {
+            "path": "duckduckstay/igw-rt-assoc-0",
+            "uniqueId": "duckduckstay_igwrtassoc0_27C0D15E",
+            "stackTrace": [
+              "new TerraformElement (/home/aviadh/git/duckduckstay/terraform/node_modules/cdktf/lib/terraform-element.js:11:28)",
+              "new TerraformResource (/home/aviadh/git/duckduckstay/terraform/node_modules/cdktf/lib/terraform-resource.js:9:9)",
+              "new RouteTableAssociation (/home/aviadh/git/duckduckstay/terraform/.gen/providers/aws/route-table-association.js:13:9)",
+              "/home/aviadh/git/duckduckstay/terraform/network.js:94:40",
+              "Array.forEach (<anonymous>)",
+              "Object.registerNetwork (/home/aviadh/git/duckduckstay/terraform/network.js:94:13)",
+              "Object.exports.registerAppEnv (/home/aviadh/git/duckduckstay/terraform/app-env.js:13:70)",
+              "new MyStack (/home/aviadh/git/duckduckstay/terraform/main.js:17:98)",
+              "Object.<anonymous> (/home/aviadh/git/duckduckstay/terraform/main.js:110:1)",
+              "Module._compile (internal/modules/cjs/loader.js:959:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:995:10)",
+              "Module.load (internal/modules/cjs/loader.js:815:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:727:14)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:1047:10)",
+              "internal/main/run_main_module.js:17:11"
+            ]
+          }
+        }
+      },
+      "duckduckstay_igwrtassoc1_19EC4B93": {
+        "route_table_id": "${aws_route_table.duckduckstay_igwrt_421A09FF.id}",
+        "subnet_id": "${aws_subnet.duckduckstay_duckduckSubnet2_C4CABE93.id}",
+        "//": {
+          "metadata": {
+            "path": "duckduckstay/igw-rt-assoc-1",
+            "uniqueId": "duckduckstay_igwrtassoc1_19EC4B93",
+            "stackTrace": [
+              "new TerraformElement (/home/aviadh/git/duckduckstay/terraform/node_modules/cdktf/lib/terraform-element.js:11:28)",
+              "new TerraformResource (/home/aviadh/git/duckduckstay/terraform/node_modules/cdktf/lib/terraform-resource.js:9:9)",
+              "new RouteTableAssociation (/home/aviadh/git/duckduckstay/terraform/.gen/providers/aws/route-table-association.js:13:9)",
+              "/home/aviadh/git/duckduckstay/terraform/network.js:94:40",
+              "Array.forEach (<anonymous>)",
+              "Object.registerNetwork (/home/aviadh/git/duckduckstay/terraform/network.js:94:13)",
+              "Object.exports.registerAppEnv (/home/aviadh/git/duckduckstay/terraform/app-env.js:13:70)",
+              "new MyStack (/home/aviadh/git/duckduckstay/terraform/main.js:17:98)",
+              "Object.<anonymous> (/home/aviadh/git/duckduckstay/terraform/main.js:110:1)",
+              "Module._compile (internal/modules/cjs/loader.js:959:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:995:10)",
+              "Module.load (internal/modules/cjs/loader.js:815:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:727:14)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:1047:10)",
+              "internal/main/run_main_module.js:17:11"
+            ]
+          }
+        }
+      },
+      "duckduckstay_igwrtassoc2_2A2103C2": {
+        "route_table_id": "${aws_route_table.duckduckstay_igwrt_421A09FF.id}",
+        "subnet_id": "${aws_subnet.duckduckstay_duckduckSubnet3_8E14345C.id}",
+        "//": {
+          "metadata": {
+            "path": "duckduckstay/igw-rt-assoc-2",
+            "uniqueId": "duckduckstay_igwrtassoc2_2A2103C2",
+            "stackTrace": [
+              "new TerraformElement (/home/aviadh/git/duckduckstay/terraform/node_modules/cdktf/lib/terraform-element.js:11:28)",
+              "new TerraformResource (/home/aviadh/git/duckduckstay/terraform/node_modules/cdktf/lib/terraform-resource.js:9:9)",
+              "new RouteTableAssociation (/home/aviadh/git/duckduckstay/terraform/.gen/providers/aws/route-table-association.js:13:9)",
+              "/home/aviadh/git/duckduckstay/terraform/network.js:94:40",
+              "Array.forEach (<anonymous>)",
+              "Object.registerNetwork (/home/aviadh/git/duckduckstay/terraform/network.js:94:13)",
+              "Object.exports.registerAppEnv (/home/aviadh/git/duckduckstay/terraform/app-env.js:13:70)",
+              "new MyStack (/home/aviadh/git/duckduckstay/terraform/main.js:17:98)",
+              "Object.<anonymous> (/home/aviadh/git/duckduckstay/terraform/main.js:110:1)",
+              "Module._compile (internal/modules/cjs/loader.js:959:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:995:10)",
+              "Module.load (internal/modules/cjs/loader.js:815:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:727:14)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:1047:10)",
+              "internal/main/run_main_module.js:17:11"
+            ]
+          }
+        }
+      }
+    },
+    "aws_iam_service_linked_role": {
+      "duckduckstay_esIAMRole_ACB625DB": {
+        "aws_service_name": "es.amazonaws.com",
+        "//": {
+          "metadata": {
+            "path": "duckduckstay/esIAMRole",
+            "uniqueId": "duckduckstay_esIAMRole_ACB625DB",
+            "stackTrace": [
+              "new TerraformElement (/home/aviadh/git/duckduckstay/terraform/node_modules/cdktf/lib/terraform-element.js:11:28)",
+              "new TerraformResource (/home/aviadh/git/duckduckstay/terraform/node_modules/cdktf/lib/terraform-resource.js:9:9)",
+              "new IamServiceLinkedRole (/home/aviadh/git/duckduckstay/terraform/.gen/providers/aws/iam-service-linked-role.js:13:9)",
+              "Object.registerElasticSearch (/home/aviadh/git/duckduckstay/terraform/elastic-search.js:6:20)",
+              "Object.exports.registerAppEnv (/home/aviadh/git/duckduckstay/terraform/app-env.js:14:40)",
+              "new MyStack (/home/aviadh/git/duckduckstay/terraform/main.js:17:98)",
+              "Object.<anonymous> (/home/aviadh/git/duckduckstay/terraform/main.js:110:1)",
+              "Module._compile (internal/modules/cjs/loader.js:959:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:995:10)",
+              "Module.load (internal/modules/cjs/loader.js:815:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:727:14)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:1047:10)",
+              "internal/main/run_main_module.js:17:11"
+            ]
+          }
+        }
+      }
+    },
+    "aws_elasticsearch_domain": {
+      "duckduckstay_esDomain_1A64DCC4": {
+        "domain_name": "foo",
+        "elasticsearch_version": "7.7",
+        "cluster_config": [
+          {
+            "instance_type": "t2.small.elasticsearch",
+            "zone_awareness_enabled": false,
+            "instance_count": 2,
+            "dedicated_master_count": 0,
+            "warm_enabled": false
+          }
+        ],
+        "ebs_options": [
+          {
+            "ebs_enabled": true,
+            "volume_type": "gp2",
+            "volume_size": 10
+          }
+        ],
+        "vpc_options": [
+          {
+            "subnet_ids": [
+              "${aws_subnet.duckduckstay_duckduckSubnet2_C4CABE93.id}"
+            ],
+            "security_group_ids": [
+              "${aws_security_group.duckduckstay_elasticSearchSg_E674A06E.id}"
+            ]
+          }
+        ],
+        "depends_on": [
+          "aws_iam_service_linked_role.duckduckstay_esIAMRole_ACB625DB"
+        ],
+        "//": {
+          "metadata": {
+            "path": "duckduckstay/esDomain",
+            "uniqueId": "duckduckstay_esDomain_1A64DCC4",
+            "stackTrace": [
+              "new TerraformElement (/home/aviadh/git/duckduckstay/terraform/node_modules/cdktf/lib/terraform-element.js:11:28)",
+              "new TerraformResource (/home/aviadh/git/duckduckstay/terraform/node_modules/cdktf/lib/terraform-resource.js:9:9)",
+              "new ElasticsearchDomain (/home/aviadh/git/duckduckstay/terraform/.gen/providers/aws/elasticsearch-domain.js:13:9)",
+              "Object.registerElasticSearch (/home/aviadh/git/duckduckstay/terraform/elastic-search.js:9:23)",
+              "Object.exports.registerAppEnv (/home/aviadh/git/duckduckstay/terraform/app-env.js:14:40)",
+              "new MyStack (/home/aviadh/git/duckduckstay/terraform/main.js:17:98)",
+              "Object.<anonymous> (/home/aviadh/git/duckduckstay/terraform/main.js:110:1)",
+              "Module._compile (internal/modules/cjs/loader.js:959:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:995:10)",
+              "Module.load (internal/modules/cjs/loader.js:815:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:727:14)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:1047:10)",
+              "internal/main/run_main_module.js:17:11"
+            ]
+          }
+        }
+      }
+    },
+    "aws_iam_role": {
+      "duckduckstay_ecsWorkerRole_77584D6A": {
+        "assume_role_policy": "{\n        \"Version\": \"2012-10-17\",\n        \"Statement\": [\n          {\n            \"Effect\": \"Allow\",\n            \"Principal\": {\n              \"Service\": \"ec2.amazonaws.com\"\n            },\n            \"Action\": \"sts:AssumeRole\"\n          },\n          {\n            \"Effect\": \"Allow\",\n            \"Principal\": {\n              \"Service\": \"ecs.amazonaws.com\"\n            },\n            \"Action\": \"sts:AssumeRole\"\n          }\n        ]\n      }",
+        "name": "ecsWorkerRole",
+        "//": {
+          "metadata": {
+            "path": "duckduckstay/ecsWorkerRole",
+            "uniqueId": "duckduckstay_ecsWorkerRole_77584D6A",
+            "stackTrace": [
+              "new TerraformElement (/home/aviadh/git/duckduckstay/terraform/node_modules/cdktf/lib/terraform-element.js:11:28)",
+              "new TerraformResource (/home/aviadh/git/duckduckstay/terraform/node_modules/cdktf/lib/terraform-resource.js:9:9)",
+              "new IamRole (/home/aviadh/git/duckduckstay/terraform/.gen/providers/aws/iam-role.js:13:9)",
+              "Object.exports.registerAppEnv (/home/aviadh/git/duckduckstay/terraform/app-env.js:15:27)",
+              "new MyStack (/home/aviadh/git/duckduckstay/terraform/main.js:17:98)",
+              "Object.<anonymous> (/home/aviadh/git/duckduckstay/terraform/main.js:110:1)",
+              "Module._compile (internal/modules/cjs/loader.js:959:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:995:10)",
+              "Module.load (internal/modules/cjs/loader.js:815:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:727:14)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:1047:10)",
+              "internal/main/run_main_module.js:17:11"
+            ]
+          }
+        }
+      },
+      "duckduckstay_duckduckBuildRole_8A67297B": {
+        "assume_role_policy": "{\n        \"Version\": \"2012-10-17\",\n        \"Statement\": [\n          {\n            \"Effect\": \"Allow\",\n            \"Principal\": {\n              \"Service\": \"codepipeline.amazonaws.com\"\n            },\n            \"Action\": \"sts:AssumeRole\"\n          },\n          {\n            \"Effect\": \"Allow\",\n            \"Principal\": {\n              \"Service\": \"codebuild.amazonaws.com\"\n            },\n            \"Action\": \"sts:AssumeRole\"\n          }\n        ]\n      }",
+        "name": "duckduckBuildRole",
+        "//": {
+          "metadata": {
+            "path": "duckduckstay/duckduckBuildRole",
+            "uniqueId": "duckduckstay_duckduckBuildRole_8A67297B",
+            "stackTrace": [
+              "new TerraformElement (/home/aviadh/git/duckduckstay/terraform/node_modules/cdktf/lib/terraform-element.js:11:28)",
+              "new TerraformResource (/home/aviadh/git/duckduckstay/terraform/node_modules/cdktf/lib/terraform-resource.js:9:9)",
+              "new IamRole (/home/aviadh/git/duckduckstay/terraform/.gen/providers/aws/iam-role.js:13:9)",
+              "MyStack.BuildEnv (/home/aviadh/git/duckduckstay/terraform/build-env.js:11:27)",
+              "Object.exports.registerBuildEnv (/home/aviadh/git/duckduckstay/terraform/build-env.js:142:21)",
+              "new MyStack (/home/aviadh/git/duckduckstay/terraform/main.js:19:41)",
+              "Object.<anonymous> (/home/aviadh/git/duckduckstay/terraform/main.js:110:1)",
+              "Module._compile (internal/modules/cjs/loader.js:959:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:995:10)",
+              "Module.load (internal/modules/cjs/loader.js:815:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:727:14)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:1047:10)",
+              "internal/main/run_main_module.js:17:11"
+            ]
+          }
+        }
+      },
+      "duckduckstay_ecsServiceRole_9580097B": {
+        "assume_role_policy": "{\n          \"Version\": \"2012-10-17\",\n          \"Statement\": [\n            {\n              \"Effect\": \"Allow\",\n              \"Principal\": {\n                \"Service\": \"ecs.amazonaws.com\"\n              },\n              \"Action\": \"sts:AssumeRole\"\n            }\n          ]\n        }",
+        "name": "ecsServiceRole",
+        "//": {
+          "metadata": {
+            "path": "duckduckstay/ecsServiceRole",
+            "uniqueId": "duckduckstay_ecsServiceRole_9580097B",
+            "stackTrace": [
+              "new TerraformElement (/home/aviadh/git/duckduckstay/terraform/node_modules/cdktf/lib/terraform-element.js:11:28)",
+              "new TerraformResource (/home/aviadh/git/duckduckstay/terraform/node_modules/cdktf/lib/terraform-resource.js:9:9)",
+              "new IamRole (/home/aviadh/git/duckduckstay/terraform/.gen/providers/aws/iam-role.js:13:9)",
+              "new MyStack (/home/aviadh/git/duckduckstay/terraform/main.js:58:32)",
+              "Object.<anonymous> (/home/aviadh/git/duckduckstay/terraform/main.js:110:1)",
+              "Module._compile (internal/modules/cjs/loader.js:959:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:995:10)",
+              "Module.load (internal/modules/cjs/loader.js:815:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:727:14)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:1047:10)",
+              "internal/main/run_main_module.js:17:11"
+            ]
+          }
+        }
+      },
+      "duckduckstay_ecsTaskExecutionRole_D6F4EDF6": {
+        "assume_role_policy": "{\n          \"Version\": \"2012-10-17\",\n          \"Statement\": [\n            {\n              \"Effect\": \"Allow\",\n              \"Principal\": {\n                \"Service\": \"ecs-tasks.amazonaws.com\"\n              },\n              \"Action\": \"sts:AssumeRole\"\n            }\n          ]\n        }",
+        "name": "ecsTaskExecutionRole",
+        "//": {
+          "metadata": {
+            "path": "duckduckstay/ecsTaskExecutionRole",
+            "uniqueId": "duckduckstay_ecsTaskExecutionRole_D6F4EDF6",
+            "stackTrace": [
+              "new TerraformElement (/home/aviadh/git/duckduckstay/terraform/node_modules/cdktf/lib/terraform-element.js:11:28)",
+              "new TerraformResource (/home/aviadh/git/duckduckstay/terraform/node_modules/cdktf/lib/terraform-resource.js:9:9)",
+              "new IamRole (/home/aviadh/git/duckduckstay/terraform/.gen/providers/aws/iam-role.js:13:9)",
+              "new MyStack (/home/aviadh/git/duckduckstay/terraform/main.js:77:38)",
+              "Object.<anonymous> (/home/aviadh/git/duckduckstay/terraform/main.js:110:1)",
+              "Module._compile (internal/modules/cjs/loader.js:959:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:995:10)",
+              "Module.load (internal/modules/cjs/loader.js:815:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:727:14)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:1047:10)",
+              "internal/main/run_main_module.js:17:11"
+            ]
+          }
+        }
+      }
+    },
+    "aws_iam_role_policy_attachment": {
+      "duckduckstay_AttachToWorkerAmazonEC2ContainerServiceforEC2Role_67BB0852": {
+        "policy_arn": "arn:aws:iam::aws:policy/service-role/AmazonEC2ContainerServiceforEC2Role",
+        "role": "${aws_iam_role.duckduckstay_ecsWorkerRole_77584D6A.id}",
+        "//": {
+          "metadata": {
+            "path": "duckduckstay/AttachToWorker_AmazonEC2ContainerServiceforEC2Role",
+            "uniqueId": "duckduckstay_AttachToWorkerAmazonEC2ContainerServiceforEC2Role_67BB0852",
+            "stackTrace": [
+              "new TerraformElement (/home/aviadh/git/duckduckstay/terraform/node_modules/cdktf/lib/terraform-element.js:11:28)",
+              "new TerraformResource (/home/aviadh/git/duckduckstay/terraform/node_modules/cdktf/lib/terraform-resource.js:9:9)",
+              "new IamRolePolicyAttachment (/home/aviadh/git/duckduckstay/terraform/.gen/providers/aws/iam-role-policy-attachment.js:13:9)",
+              "Object.exports.registerAppEnv (/home/aviadh/git/duckduckstay/terraform/app-env.js:37:5)",
+              "new MyStack (/home/aviadh/git/duckduckstay/terraform/main.js:17:98)",
+              "Object.<anonymous> (/home/aviadh/git/duckduckstay/terraform/main.js:110:1)",
+              "Module._compile (internal/modules/cjs/loader.js:959:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:995:10)",
+              "Module.load (internal/modules/cjs/loader.js:815:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:727:14)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:1047:10)",
+              "internal/main/run_main_module.js:17:11"
+            ]
+          }
+        }
+      },
+      "duckduckstay_AttachToServiceAmazonEC2ContainerServiceRole_E69A1A13": {
+        "policy_arn": "arn:aws:iam::aws:policy/service-role/AmazonEC2ContainerServiceRole",
+        "role": "${aws_iam_role.duckduckstay_ecsServiceRole_9580097B.id}",
+        "//": {
+          "metadata": {
+            "path": "duckduckstay/AttachToService_AmazonEC2ContainerServiceRole",
+            "uniqueId": "duckduckstay_AttachToServiceAmazonEC2ContainerServiceRole_E69A1A13",
+            "stackTrace": [
+              "new TerraformElement (/home/aviadh/git/duckduckstay/terraform/node_modules/cdktf/lib/terraform-element.js:11:28)",
+              "new TerraformResource (/home/aviadh/git/duckduckstay/terraform/node_modules/cdktf/lib/terraform-resource.js:9:9)",
+              "new IamRolePolicyAttachment (/home/aviadh/git/duckduckstay/terraform/.gen/providers/aws/iam-role-policy-attachment.js:13:9)",
+              "new MyStack (/home/aviadh/git/duckduckstay/terraform/main.js:73:9)",
+              "Object.<anonymous> (/home/aviadh/git/duckduckstay/terraform/main.js:110:1)",
+              "Module._compile (internal/modules/cjs/loader.js:959:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:995:10)",
+              "Module.load (internal/modules/cjs/loader.js:815:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:727:14)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:1047:10)",
+              "internal/main/run_main_module.js:17:11"
+            ]
+          }
+        }
+      },
+      "duckduckstay_AttachToTaskExecutionAmazonECSTaskExecutionRolePolicy_1134D838": {
+        "policy_arn": "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy",
+        "role": "${aws_iam_role.duckduckstay_ecsTaskExecutionRole_D6F4EDF6.id}",
+        "//": {
+          "metadata": {
+            "path": "duckduckstay/AttachToTaskExecution_AmazonECSTaskExecutionRolePolicy",
+            "uniqueId": "duckduckstay_AttachToTaskExecutionAmazonECSTaskExecutionRolePolicy_1134D838",
+            "stackTrace": [
+              "new TerraformElement (/home/aviadh/git/duckduckstay/terraform/node_modules/cdktf/lib/terraform-element.js:11:28)",
+              "new TerraformResource (/home/aviadh/git/duckduckstay/terraform/node_modules/cdktf/lib/terraform-resource.js:9:9)",
+              "new IamRolePolicyAttachment (/home/aviadh/git/duckduckstay/terraform/.gen/providers/aws/iam-role-policy-attachment.js:13:9)",
+              "new MyStack (/home/aviadh/git/duckduckstay/terraform/main.js:92:9)",
+              "Object.<anonymous> (/home/aviadh/git/duckduckstay/terraform/main.js:110:1)",
+              "Module._compile (internal/modules/cjs/loader.js:959:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:995:10)",
+              "Module.load (internal/modules/cjs/loader.js:815:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:727:14)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:1047:10)",
+              "internal/main/run_main_module.js:17:11"
+            ]
+          }
+        }
+      }
+    },
+    "aws_iam_role_policy": {
+      "duckduckstay_ecsWorkerPolicy_DB7593D1": {
+        "name": "ecsWorkerPolicy",
+        "policy": "{\n        \"Version\": \"2012-10-17\",\n        \"Statement\": [\n          {\n            \"Effect\": \"Allow\",\n            \"Action\": [\n              \"sqs:*\",\n              \"s3:*\",\n              \"dynamodb:*\"\n            ],\n            \"Resource\": \"*\"\n          }\n        ]\n      }",
+        "role": "${aws_iam_role.duckduckstay_ecsWorkerRole_77584D6A.id}",
+        "//": {
+          "metadata": {
+            "path": "duckduckstay/ecsWorkerPolicy",
+            "uniqueId": "duckduckstay_ecsWorkerPolicy_DB7593D1",
+            "stackTrace": [
+              "new TerraformElement (/home/aviadh/git/duckduckstay/terraform/node_modules/cdktf/lib/terraform-element.js:11:28)",
+              "new TerraformResource (/home/aviadh/git/duckduckstay/terraform/node_modules/cdktf/lib/terraform-resource.js:9:9)",
+              "new IamRolePolicy (/home/aviadh/git/duckduckstay/terraform/.gen/providers/aws/iam-role-policy.js:13:9)",
+              "Object.exports.registerAppEnv (/home/aviadh/git/duckduckstay/terraform/app-env.js:41:5)",
+              "new MyStack (/home/aviadh/git/duckduckstay/terraform/main.js:17:98)",
+              "Object.<anonymous> (/home/aviadh/git/duckduckstay/terraform/main.js:110:1)",
+              "Module._compile (internal/modules/cjs/loader.js:959:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:995:10)",
+              "Module.load (internal/modules/cjs/loader.js:815:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:727:14)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:1047:10)",
+              "internal/main/run_main_module.js:17:11"
+            ]
+          }
+        }
+      },
+      "duckduckstay_duckduckBuildPolicy_6F34D224": {
+        "name": "duckduckBuildPolicy",
+        "policy": "{\n        \"Version\": \"2012-10-17\",\n        \"Statement\": [\n          {\n            \"Effect\":\"Allow\",\n            \"Action\": [\n              \"s3:GetObject\",\n              \"s3:GetObjectVersion\",\n              \"s3:GetBucketVersioning\",\n              \"s3:PutObject\"\n            ],\n            \"Resource\": [\n              \"${aws_s3_bucket.duckduckstay_duckduckBuildBucket_AEAB79DE.arn}\",\n              \"${aws_s3_bucket.duckduckstay_duckduckBuildBucket_AEAB79DE.arn}/*\"\n            ]\n          },\n          {\n            \"Effect\": \"Allow\",\n            \"Action\": [\n              \"codebuild:*\",\n              \"ec2:*\",\n              \"ecr:*\",\n              \"logs:*\"\n            ],\n            \"Resource\": \"*\"\n          }\n        ]\n      }",
+        "role": "${aws_iam_role.duckduckstay_duckduckBuildRole_8A67297B.id}",
+        "//": {
+          "metadata": {
+            "path": "duckduckstay/duckduckBuildPolicy",
+            "uniqueId": "duckduckstay_duckduckBuildPolicy_6F34D224",
+            "stackTrace": [
+              "new TerraformElement (/home/aviadh/git/duckduckstay/terraform/node_modules/cdktf/lib/terraform-element.js:11:28)",
+              "new TerraformResource (/home/aviadh/git/duckduckstay/terraform/node_modules/cdktf/lib/terraform-resource.js:9:9)",
+              "new IamRolePolicy (/home/aviadh/git/duckduckstay/terraform/.gen/providers/aws/iam-role-policy.js:13:9)",
+              "MyStack.BuildEnv (/home/aviadh/git/duckduckstay/terraform/build-env.js:37:9)",
+              "Object.exports.registerBuildEnv (/home/aviadh/git/duckduckstay/terraform/build-env.js:142:21)",
+              "new MyStack (/home/aviadh/git/duckduckstay/terraform/main.js:19:41)",
+              "Object.<anonymous> (/home/aviadh/git/duckduckstay/terraform/main.js:110:1)",
+              "Module._compile (internal/modules/cjs/loader.js:959:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:995:10)",
+              "Module.load (internal/modules/cjs/loader.js:815:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:727:14)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:1047:10)",
+              "internal/main/run_main_module.js:17:11"
+            ]
+          }
+        }
+      }
+    },
+    "aws_s3_bucket": {
+      "duckduckstay_s3ScreenshotBucket_65B9E8A2": {
+        "acl": "private",
+        "bucket": "crawler-screenshots-aviad",
+        "//": {
+          "metadata": {
+            "path": "duckduckstay/s3ScreenshotBucket",
+            "uniqueId": "duckduckstay_s3ScreenshotBucket_65B9E8A2",
+            "stackTrace": [
+              "new TerraformElement (/home/aviadh/git/duckduckstay/terraform/node_modules/cdktf/lib/terraform-element.js:11:28)",
+              "new TerraformResource (/home/aviadh/git/duckduckstay/terraform/node_modules/cdktf/lib/terraform-resource.js:9:9)",
+              "new S3Bucket (/home/aviadh/git/duckduckstay/terraform/.gen/providers/aws/s3-bucket.js:13:9)",
+              "Object.exports.registerAppEnv (/home/aviadh/git/duckduckstay/terraform/app-env.js:59:32)",
+              "new MyStack (/home/aviadh/git/duckduckstay/terraform/main.js:17:98)",
+              "Object.<anonymous> (/home/aviadh/git/duckduckstay/terraform/main.js:110:1)",
+              "Module._compile (internal/modules/cjs/loader.js:959:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:995:10)",
+              "Module.load (internal/modules/cjs/loader.js:815:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:727:14)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:1047:10)",
+              "internal/main/run_main_module.js:17:11"
+            ]
+          }
+        }
+      },
+      "duckduckstay_duckduckBuildBucket_AEAB79DE": {
+        "acl": "private",
+        "bucket": "duckduck-build-bucket",
+        "//": {
+          "metadata": {
+            "path": "duckduckstay/duckduckBuildBucket",
+            "uniqueId": "duckduckstay_duckduckBuildBucket_AEAB79DE",
+            "stackTrace": [
+              "new TerraformElement (/home/aviadh/git/duckduckstay/terraform/node_modules/cdktf/lib/terraform-element.js:11:28)",
+              "new TerraformResource (/home/aviadh/git/duckduckstay/terraform/node_modules/cdktf/lib/terraform-resource.js:9:9)",
+              "new S3Bucket (/home/aviadh/git/duckduckstay/terraform/.gen/providers/aws/s3-bucket.js:13:9)",
+              "MyStack.BuildEnv (/home/aviadh/git/duckduckstay/terraform/build-env.js:33:26)",
+              "Object.exports.registerBuildEnv (/home/aviadh/git/duckduckstay/terraform/build-env.js:142:21)",
+              "new MyStack (/home/aviadh/git/duckduckstay/terraform/main.js:19:41)",
+              "Object.<anonymous> (/home/aviadh/git/duckduckstay/terraform/main.js:110:1)",
+              "Module._compile (internal/modules/cjs/loader.js:959:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:995:10)",
+              "Module.load (internal/modules/cjs/loader.js:815:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:727:14)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:1047:10)",
+              "internal/main/run_main_module.js:17:11"
+            ]
+          }
+        }
+      }
+    },
+    "aws_ecr_repository": {
+      "duckduckstay_duckduckdocker_BBB1ECAE": {
+        "name": "duckduckdocker",
+        "//": {
+          "metadata": {
+            "path": "duckduckstay/duckduckdocker",
+            "uniqueId": "duckduckstay_duckduckdocker_BBB1ECAE",
+            "stackTrace": [
+              "new TerraformElement (/home/aviadh/git/duckduckstay/terraform/node_modules/cdktf/lib/terraform-element.js:11:28)",
+              "new TerraformResource (/home/aviadh/git/duckduckstay/terraform/node_modules/cdktf/lib/terraform-resource.js:9:9)",
+              "new EcrRepository (/home/aviadh/git/duckduckstay/terraform/.gen/providers/aws/ecr-repository.js:13:9)",
+              "MyStack.BuildEnv (/home/aviadh/git/duckduckstay/terraform/build-env.js:8:25)",
+              "Object.exports.registerBuildEnv (/home/aviadh/git/duckduckstay/terraform/build-env.js:142:21)",
+              "new MyStack (/home/aviadh/git/duckduckstay/terraform/main.js:19:41)",
+              "Object.<anonymous> (/home/aviadh/git/duckduckstay/terraform/main.js:110:1)",
+              "Module._compile (internal/modules/cjs/loader.js:959:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:995:10)",
+              "Module.load (internal/modules/cjs/loader.js:815:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:727:14)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:1047:10)",
+              "internal/main/run_main_module.js:17:11"
+            ]
+          }
+        }
+      }
+    },
+    "aws_codebuild_project": {
+      "duckduckstay_duckduckBuildProject_6DBEE6A3": {
+        "name": "DuckDuckBuild",
+        "service_role": "${aws_iam_role.duckduckstay_duckduckBuildRole_8A67297B.arn}",
+        "artifacts": [
+          {
+            "type": "CODEPIPELINE"
+          }
+        ],
+        "environment": [
+          {
+            "compute_type": "BUILD_GENERAL1_SMALL",
+            "image": "aws/codebuild/standard:2.0",
+            "type": "LINUX_CONTAINER",
+            "privileged_mode": true
+          }
+        ],
+        "source": [
+          {
+            "type": "CODEPIPELINE"
+          }
+        ],
+        "//": {
+          "metadata": {
+            "path": "duckduckstay/duckduckBuildProject",
+            "uniqueId": "duckduckstay_duckduckBuildProject_6DBEE6A3",
+            "stackTrace": [
+              "new TerraformElement (/home/aviadh/git/duckduckstay/terraform/node_modules/cdktf/lib/terraform-element.js:11:28)",
+              "new TerraformResource (/home/aviadh/git/duckduckstay/terraform/node_modules/cdktf/lib/terraform-resource.js:9:9)",
+              "new CodebuildProject (/home/aviadh/git/duckduckstay/terraform/.gen/providers/aws/codebuild-project.js:13:9)",
+              "MyStack.BuildEnv (/home/aviadh/git/duckduckstay/terraform/build-env.js:69:30)",
+              "Object.exports.registerBuildEnv (/home/aviadh/git/duckduckstay/terraform/build-env.js:142:21)",
+              "new MyStack (/home/aviadh/git/duckduckstay/terraform/main.js:19:41)",
+              "Object.<anonymous> (/home/aviadh/git/duckduckstay/terraform/main.js:110:1)",
+              "Module._compile (internal/modules/cjs/loader.js:959:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:995:10)",
+              "Module.load (internal/modules/cjs/loader.js:815:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:727:14)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:1047:10)",
+              "internal/main/run_main_module.js:17:11"
+            ]
+          }
+        }
+      }
+    },
+    "aws_codepipeline": {
+      "duckduckstay_duckduckBuildPipeline_3A3F8186": {
+        "name": "duckduckBuild",
+        "role_arn": "${aws_iam_role.duckduckstay_duckduckBuildRole_8A67297B.arn}",
+        "artifact_store": [
+          {
+            "type": "S3",
+            "location": "duckduck-build-bucket"
+          }
+        ],
+        "stage": [
+          {
+            "name": "Source",
+            "action": [
+              {
+                "name": "source",
+                "category": "Source",
+                "provider": "GitHub",
+                "owner": "ThirdParty",
+                "version": "1",
+                "output_artifacts": [
+                  "source_output"
+                ],
+                "configuration": {
+                  "Owner": "sthuck",
+                  "Repo": "duckduckstay",
+                  "Branch": "master",
+                  "OAuthToken": "84eb9746d57d1a1ed8216109192f955c7770d60f",
+                  "PollForSourceChanges": "False"
+                }
+              }
+            ]
+          },
+          {
+            "name": "Build",
+            "action": [
+              {
+                "name": "Build",
+                "category": "Build",
+                "owner": "AWS",
+                "provider": "CodeBuild",
+                "input_artifacts": [
+                  "source_output"
+                ],
+                "version": "1",
+                "configuration": {
+                  "ProjectName": "DuckDuckBuild",
+                  "EnvironmentVariables": "[{\"name\":\"IMAGE_TAG\",\"value\":\"latest\"},{\"name\":\"IMAGE_REPO_NAME\",\"value\":\"duckduckdocker\"},{\"name\":\"REPO_URL\",\"value\":\"${aws_ecr_repository.duckduckstay_duckduckdocker_BBB1ECAE.repository_url}\"}]"
+                }
+              }
+            ]
+          }
+        ],
+        "depends_on": [
+          "aws_codebuild_project.duckduckstay_duckduckBuildProject_6DBEE6A3"
+        ],
+        "//": {
+          "metadata": {
+            "path": "duckduckstay/duckduckBuildPipeline",
+            "uniqueId": "duckduckstay_duckduckBuildPipeline_3A3F8186",
+            "stackTrace": [
+              "new TerraformElement (/home/aviadh/git/duckduckstay/terraform/node_modules/cdktf/lib/terraform-element.js:11:28)",
+              "new TerraformResource (/home/aviadh/git/duckduckstay/terraform/node_modules/cdktf/lib/terraform-resource.js:9:9)",
+              "new Codepipeline (/home/aviadh/git/duckduckstay/terraform/.gen/providers/aws/codepipeline.js:13:9)",
+              "MyStack.BuildEnv (/home/aviadh/git/duckduckstay/terraform/build-env.js:81:26)",
+              "Object.exports.registerBuildEnv (/home/aviadh/git/duckduckstay/terraform/build-env.js:142:21)",
+              "new MyStack (/home/aviadh/git/duckduckstay/terraform/main.js:19:41)",
+              "Object.<anonymous> (/home/aviadh/git/duckduckstay/terraform/main.js:110:1)",
+              "Module._compile (internal/modules/cjs/loader.js:959:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:995:10)",
+              "Module.load (internal/modules/cjs/loader.js:815:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:727:14)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:1047:10)",
+              "internal/main/run_main_module.js:17:11"
+            ]
+          }
+        }
+      }
+    },
+    "aws_codepipeline_webhook": {
+      "duckduckstay_pipelineWebHook_71DAC8E8": {
+        "authentication": "GITHUB_HMAC",
+        "name": "onPushHook",
+        "target_action": "Source",
+        "target_pipeline": "duckduckBuild",
+        "authentication_configuration": [
+          {
+            "secret_token": "foobarbooooooo32333"
+          }
+        ],
+        "filter": [
+          {
+            "json_path": "$.ref",
+            "match_equals": "refs/heads/master"
+          }
+        ],
+        "//": {
+          "metadata": {
+            "path": "duckduckstay/pipelineWebHook",
+            "uniqueId": "duckduckstay_pipelineWebHook_71DAC8E8",
+            "stackTrace": [
+              "new TerraformElement (/home/aviadh/git/duckduckstay/terraform/node_modules/cdktf/lib/terraform-element.js:11:28)",
+              "new TerraformResource (/home/aviadh/git/duckduckstay/terraform/node_modules/cdktf/lib/terraform-resource.js:9:9)",
+              "new CodepipelineWebhook (/home/aviadh/git/duckduckstay/terraform/.gen/providers/aws/codepipeline-webhook.js:13:9)",
+              "MyStack.BuildEnv (/home/aviadh/git/duckduckstay/terraform/build-env.js:126:25)",
+              "Object.exports.registerBuildEnv (/home/aviadh/git/duckduckstay/terraform/build-env.js:142:21)",
+              "new MyStack (/home/aviadh/git/duckduckstay/terraform/main.js:19:41)",
+              "Object.<anonymous> (/home/aviadh/git/duckduckstay/terraform/main.js:110:1)",
+              "Module._compile (internal/modules/cjs/loader.js:959:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:995:10)",
+              "Module.load (internal/modules/cjs/loader.js:815:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:727:14)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:1047:10)",
+              "internal/main/run_main_module.js:17:11"
+            ]
+          }
+        }
+      }
+    },
+    "aws_iam_instance_profile": {
+      "duckduckstay_ecsWorkersiamProfile_C7B201E2": {
+        "name": "ecsWorkers-iamProfile",
+        "role": "ecsWorkerRole",
+        "//": {
+          "metadata": {
+            "path": "duckduckstay/ecsWorkers-iamProfile",
+            "uniqueId": "duckduckstay_ecsWorkersiamProfile_C7B201E2",
+            "stackTrace": [
+              "new TerraformElement (/home/aviadh/git/duckduckstay/terraform/node_modules/cdktf/lib/terraform-element.js:11:28)",
+              "new TerraformResource (/home/aviadh/git/duckduckstay/terraform/node_modules/cdktf/lib/terraform-resource.js:9:9)",
+              "new IamInstanceProfile (/home/aviadh/git/duckduckstay/terraform/.gen/providers/aws/iam-instance-profile.js:13:9)",
+              "new MyStack (/home/aviadh/git/duckduckstay/terraform/main.js:21:33)",
+              "Object.<anonymous> (/home/aviadh/git/duckduckstay/terraform/main.js:110:1)",
+              "Module._compile (internal/modules/cjs/loader.js:959:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:995:10)",
+              "Module.load (internal/modules/cjs/loader.js:815:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:727:14)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:1047:10)",
+              "internal/main/run_main_module.js:17:11"
+            ]
+          }
+        }
+      }
+    },
+    "aws_launch_configuration": {
+      "duckduckstay_ecsWorkerslg_D5746772": {
+        "associate_public_ip_address": true,
+        "iam_instance_profile": "${aws_iam_instance_profile.duckduckstay_ecsWorkersiamProfile_C7B201E2.id}",
+        "image_id": "ami-00a35b04ab99b549a",
+        "instance_type": "t2.medium",
+        "key_name": "main-key",
+        "name": "ecsWorkers-lg",
+        "security_groups": [
+          "${aws_security_group.duckduckstay_ecsWorkerSg_BC7FE8D5.id}"
+        ],
+        "user_data": "#!/bin/bash\necho ECS_CLUSTER=duckduckCluster >> /etc/ecs/ecs.config\n",
+        "root_block_device": [
+          {
+            "delete_on_termination": true,
+            "volume_size": 30,
+            "volume_type": "gp2"
+          }
+        ],
+        "//": {
+          "metadata": {
+            "path": "duckduckstay/ecsWorkers-lg",
+            "uniqueId": "duckduckstay_ecsWorkerslg_D5746772",
+            "stackTrace": [
+              "new TerraformElement (/home/aviadh/git/duckduckstay/terraform/node_modules/cdktf/lib/terraform-element.js:11:28)",
+              "new TerraformResource (/home/aviadh/git/duckduckstay/terraform/node_modules/cdktf/lib/terraform-resource.js:9:9)",
+              "new LaunchConfiguration (/home/aviadh/git/duckduckstay/terraform/.gen/providers/aws/launch-configuration.js:13:9)",
+              "new MyStack (/home/aviadh/git/duckduckstay/terraform/main.js:25:20)",
+              "Object.<anonymous> (/home/aviadh/git/duckduckstay/terraform/main.js:110:1)",
+              "Module._compile (internal/modules/cjs/loader.js:959:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:995:10)",
+              "Module.load (internal/modules/cjs/loader.js:815:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:727:14)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:1047:10)",
+              "internal/main/run_main_module.js:17:11"
+            ]
+          }
+        }
+      }
+    },
+    "aws_autoscaling_group": {
+      "duckduckstay_ecsWorkers_A492B078": {
+        "health_check_type": "EC2",
+        "launch_configuration": "ecsWorkers-lg",
+        "max_size": 5,
+        "min_size": 3,
+        "name": "ecsWorkers-asg",
+        "vpc_zone_identifier": [
+          "${aws_subnet.duckduckstay_duckduckSubnet1_6E1CF87E.id}",
+          "${aws_subnet.duckduckstay_duckduckSubnet2_C4CABE93.id}",
+          "${aws_subnet.duckduckstay_duckduckSubnet3_8E14345C.id}"
+        ],
+        "depends_on": [
+          "aws_launch_configuration.duckduckstay_ecsWorkerslg_D5746772"
+        ],
+        "//": {
+          "metadata": {
+            "path": "duckduckstay/ecsWorkers",
+            "uniqueId": "duckduckstay_ecsWorkers_A492B078",
+            "stackTrace": [
+              "new TerraformElement (/home/aviadh/git/duckduckstay/terraform/node_modules/cdktf/lib/terraform-element.js:11:28)",
+              "new TerraformResource (/home/aviadh/git/duckduckstay/terraform/node_modules/cdktf/lib/terraform-resource.js:9:9)",
+              "new AutoscalingGroup (/home/aviadh/git/duckduckstay/terraform/.gen/providers/aws/autoscaling-group.js:13:9)",
+              "new MyStack (/home/aviadh/git/duckduckstay/terraform/main.js:38:21)",
+              "Object.<anonymous> (/home/aviadh/git/duckduckstay/terraform/main.js:110:1)",
+              "Module._compile (internal/modules/cjs/loader.js:959:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:995:10)",
+              "Module.load (internal/modules/cjs/loader.js:815:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:727:14)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:1047:10)",
+              "internal/main/run_main_module.js:17:11"
+            ]
+          }
+        }
+      }
+    },
+    "aws_ecs_capacity_provider": {
+      "duckduckstay_duckduckWorkerscp_81EC1CE6": {
+        "name": "duckduckWorkers-cp",
+        "auto_scaling_group_provider": [
+          {
+            "auto_scaling_group_arn": "${aws_autoscaling_group.duckduckstay_ecsWorkers_A492B078.arn}",
+            "managed_scaling": [
+              {
+                "status": "DISABLED"
+              }
+            ]
+          }
+        ],
+        "depends_on": [
+          "aws_autoscaling_group.duckduckstay_ecsWorkers_A492B078"
+        ],
+        "//": {
+          "metadata": {
+            "path": "duckduckstay/duckduckWorkers-cp",
+            "uniqueId": "duckduckstay_duckduckWorkerscp_81EC1CE6",
+            "stackTrace": [
+              "new TerraformElement (/home/aviadh/git/duckduckstay/terraform/node_modules/cdktf/lib/terraform-element.js:11:28)",
+              "new TerraformResource (/home/aviadh/git/duckduckstay/terraform/node_modules/cdktf/lib/terraform-resource.js:9:9)",
+              "new EcsCapacityProvider (/home/aviadh/git/duckduckstay/terraform/.gen/providers/aws/ecs-capacity-provider.js:13:9)",
+              "new MyStack (/home/aviadh/git/duckduckstay/terraform/main.js:47:34)",
+              "Object.<anonymous> (/home/aviadh/git/duckduckstay/terraform/main.js:110:1)",
+              "Module._compile (internal/modules/cjs/loader.js:959:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:995:10)",
+              "Module.load (internal/modules/cjs/loader.js:815:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:727:14)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:1047:10)",
+              "internal/main/run_main_module.js:17:11"
+            ]
+          }
+        }
+      }
+    },
+    "aws_ecs_cluster": {
+      "duckduckstay_duckduckCluster_B791A43A": {
+        "capacity_providers": [
+          "duckduckWorkers-cp"
+        ],
+        "name": "duckduckCluster",
+        "setting": [
+          {
+            "name": "containerInsights",
+            "value": "enabled"
+          }
+        ],
+        "depends_on": [
+          "aws_ecs_capacity_provider.duckduckstay_duckduckWorkerscp_81EC1CE6"
+        ],
+        "//": {
+          "metadata": {
+            "path": "duckduckstay/duckduckCluster",
+            "uniqueId": "duckduckstay_duckduckCluster_B791A43A",
+            "stackTrace": [
+              "new TerraformElement (/home/aviadh/git/duckduckstay/terraform/node_modules/cdktf/lib/terraform-element.js:11:28)",
+              "new TerraformResource (/home/aviadh/git/duckduckstay/terraform/node_modules/cdktf/lib/terraform-resource.js:9:9)",
+              "new EcsCluster (/home/aviadh/git/duckduckstay/terraform/.gen/providers/aws/ecs-cluster.js:13:9)",
+              "new MyStack (/home/aviadh/git/duckduckstay/terraform/main.js:52:28)",
+              "Object.<anonymous> (/home/aviadh/git/duckduckstay/terraform/main.js:110:1)",
+              "Module._compile (internal/modules/cjs/loader.js:959:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:995:10)",
+              "Module.load (internal/modules/cjs/loader.js:815:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:727:14)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:1047:10)",
+              "internal/main/run_main_module.js:17:11"
+            ]
+          }
+        }
+      }
+    },
+    "aws_ecs_task_definition": {
+      "duckduckstay_duckduckWorkerTask_EDEE8029": {
+        "container_definitions": "[{\"dnsSearchDomains\":null,\"environmentFiles\":null,\"logConfiguration\":{\"logDriver\":\"awslogs\",\"secretOptions\":null,\"options\":{\"awslogs-group\":\"/ecs/duckduckWorkers\",\"awslogs-region\":\"us-east-1\",\"awslogs-stream-prefix\":\"ecs\"}},\"entryPoint\":null,\"portMappings\":[],\"command\":null,\"linuxParameters\":null,\"cpu\":0,\"environment\":[{\"name\":\"AWS_REGION\",\"value\":\"us-east-1\"},{\"name\":\"DYNAMO_DB_TABLE\",\"value\":\"urlHashTable\"},{\"name\":\"ES\",\"value\":\"${aws_elasticsearch_domain.duckduckstay_esDomain_1A64DCC4.endpoint}\"},{\"name\":\"HEADLESS\",\"value\":\"true\"},{\"name\":\"SQS_URL\",\"value\":\"${data.aws_sqs_queue.duckduckstay_dataSqs_DC7EFD7C.url}\"},{\"name\":\"SCREENSHOTS_S3_BUCKET\",\"value\":\"crawler-screenshots-aviad\"}],\"resourceRequirements\":null,\"ulimits\":null,\"dnsServers\":[\"8.8.8.8\",\"1.1.1.1\"],\"mountPoints\":[],\"workingDirectory\":null,\"secrets\":null,\"dockerSecurityOptions\":null,\"memory\":3000,\"memoryReservation\":null,\"volumesFrom\":[],\"stopTimeout\":null,\"image\":\"${aws_ecr_repository.duckduckstay_duckduckdocker_BBB1ECAE.repository_url}:latest\",\"startTimeout\":null,\"firelensConfiguration\":null,\"dependsOn\":null,\"disableNetworking\":null,\"interactive\":null,\"healthCheck\":null,\"essential\":true,\"links\":null,\"hostname\":null,\"extraHosts\":null,\"pseudoTerminal\":null,\"user\":null,\"readonlyRootFilesystem\":null,\"dockerLabels\":null,\"systemControls\":null,\"privileged\":false,\"name\":\"crawler\"}]",
+        "execution_role_arn": "${aws_iam_role.duckduckstay_ecsTaskExecutionRole_D6F4EDF6.arn}",
+        "family": "duckduckWorkerTask",
+        "requires_compatibilities": [
+          "EC2"
+        ],
+        "task_role_arn": "${aws_iam_role.duckduckstay_ecsWorkerRole_77584D6A.arn}",
+        "//": {
+          "metadata": {
+            "path": "duckduckstay/duckduckWorkerTask",
+            "uniqueId": "duckduckstay_duckduckWorkerTask_EDEE8029",
+            "stackTrace": [
+              "new TerraformElement (/home/aviadh/git/duckduckstay/terraform/node_modules/cdktf/lib/terraform-element.js:11:28)",
+              "new TerraformResource (/home/aviadh/git/duckduckstay/terraform/node_modules/cdktf/lib/terraform-resource.js:9:9)",
+              "new EcsTaskDefinition (/home/aviadh/git/duckduckstay/terraform/.gen/providers/aws/ecs-task-definition.js:13:9)",
+              "new MyStack (/home/aviadh/git/duckduckstay/terraform/main.js:100:32)",
+              "Object.<anonymous> (/home/aviadh/git/duckduckstay/terraform/main.js:110:1)",
+              "Module._compile (internal/modules/cjs/loader.js:959:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:995:10)",
+              "Module.load (internal/modules/cjs/loader.js:815:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:727:14)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:1047:10)",
+              "internal/main/run_main_module.js:17:11"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "data": {
+    "aws_sqs_queue": {
+      "duckduckstay_dataurlQueue_35D61C2A": {
+        "name": "urlQueue",
+        "depends_on": [
+          "aws_sqs_queue.duckduckstay_urlQueue_15E33B74"
+        ],
+        "//": {
+          "metadata": {
+            "path": "duckduckstay/data_urlQueue",
+            "uniqueId": "duckduckstay_dataurlQueue_35D61C2A",
+            "stackTrace": [
+              "new TerraformElement (/home/aviadh/git/duckduckstay/terraform/node_modules/cdktf/lib/terraform-element.js:11:28)",
+              "new TerraformDataSource (/home/aviadh/git/duckduckstay/terraform/node_modules/cdktf/lib/terraform-data-source.js:9:9)",
+              "new DataAwsSqsQueue (/home/aviadh/git/duckduckstay/terraform/.gen/providers/aws/data-aws-sqs-queue.js:13:9)",
+              "registerSqs (/home/aviadh/git/duckduckstay/terraform/app-env.js:84:23)",
+              "Object.exports.registerAppEnv (/home/aviadh/git/duckduckstay/terraform/app-env.js:10:17)",
+              "new MyStack (/home/aviadh/git/duckduckstay/terraform/main.js:17:98)",
+              "Object.<anonymous> (/home/aviadh/git/duckduckstay/terraform/main.js:110:1)",
+              "Module._compile (internal/modules/cjs/loader.js:959:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:995:10)",
+              "Module.load (internal/modules/cjs/loader.js:815:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:727:14)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:1047:10)",
+              "internal/main/run_main_module.js:17:11"
+            ]
+          }
+        }
+      },
+      "duckduckstay_dataSqs_DC7EFD7C": {
+        "name": "urlQueue",
+        "depends_on": [
+          "aws_sqs_queue.duckduckstay_urlQueue_15E33B74"
+        ],
+        "//": {
+          "metadata": {
+            "path": "duckduckstay/dataSqs",
+            "uniqueId": "duckduckstay_dataSqs_DC7EFD7C",
+            "stackTrace": [
+              "new TerraformElement (/home/aviadh/git/duckduckstay/terraform/node_modules/cdktf/lib/terraform-element.js:11:28)",
+              "new TerraformDataSource (/home/aviadh/git/duckduckstay/terraform/node_modules/cdktf/lib/terraform-data-source.js:9:9)",
+              "new DataAwsSqsQueue (/home/aviadh/git/duckduckstay/terraform/.gen/providers/aws/data-aws-sqs-queue.js:13:9)",
+              "new MyStack (/home/aviadh/git/duckduckstay/terraform/main.js:96:25)",
+              "Object.<anonymous> (/home/aviadh/git/duckduckstay/terraform/main.js:110:1)",
+              "Module._compile (internal/modules/cjs/loader.js:959:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:995:10)",
+              "Module.load (internal/modules/cjs/loader.js:815:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:727:14)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:1047:10)",
+              "internal/main/run_main_module.js:17:11"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "output": {
+    "duckduckstay_sqsQueueAddress_2878CA71": {
+      "value": "${data.aws_sqs_queue.duckduckstay_dataurlQueue_35D61C2A.url}"
+    },
+    "duckduckstay_dynamoDbTableName_32B9D242": {
+      "value": "urlHashTable"
+    },
+    "duckduckstay_webhookUrl_FC44AAB1": {
+      "value": "${aws_codepipeline_webhook.duckduckstay_pipelineWebHook_71DAC8E8.url}"
+    }
+  }
+}
