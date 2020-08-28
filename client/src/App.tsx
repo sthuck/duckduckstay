@@ -45,7 +45,9 @@ function App() {
         <ThemeProvider theme={theme}>
           <Container className="main">
             <Box className={searchBoxClasses}>
-              <Typography variant="h3">DuckDuckStay</Typography>
+              <Box onClick={() => window.location.reload()} className="title">
+                <Typography variant="h3">DuckDuckStay</Typography>
+              </Box>
               <OutlinedInput
                 className="search-input"
                 classes={styles}
@@ -64,7 +66,7 @@ function App() {
             <Fade in={pending} mountOnEnter unmountOnExit >
               <CircularProgress color="secondary" className="loader" size={80} thickness={4} />
             </Fade>
-            {searchResults && <Results searchResults={searchResults}></Results>}
+            {searchResults && <Results searchResults={searchResults} searchTerm={searchTerm}></Results>}
           </Container>
         </ThemeProvider>
       </CssBaseline>

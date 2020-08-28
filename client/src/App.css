@@ -25,6 +25,10 @@ body,
   position: relative;
 }
 
+.title {
+  cursor: pointer;  
+}
+
 .loader {
   justify-self: center;
   align-self: center;

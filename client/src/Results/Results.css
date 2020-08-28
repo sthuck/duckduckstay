@@ -4,17 +4,19 @@
   padding: 8px;
 }
 
-.search-result > img {
-  height: 192px;
-  width: 192px;
+.search-result > .img-container {
+  /* height: 192px; */
+  width: 144px;
+  flex: 1 0 144px;
   align-self: center;
+  margin-right: 8px;
 }
 .search-result-content {
   padding: 6px;
   display: flex !important;
   flex-direction: column;
   overflow: hidden;
-  height: 200px;
+  height: 160px;
 }
 .search-result-title {
   flex: 0 0 auto;

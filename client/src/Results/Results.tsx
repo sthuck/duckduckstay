@@ -10,9 +10,10 @@ import './Results.css';
 
 type Props = {
   searchResults: SearchResult[];
+  searchTerm: string;
 };
 
-export const Results: React.FunctionComponent<Props> = ({searchResults}) => {
+export const Results: React.FunctionComponent<Props> = ({searchResults, searchTerm}) => {
   return (
     <Box className="search-results">
       <Grid container spacing={5}>
@@ -22,7 +23,9 @@ export const Results: React.FunctionComponent<Props> = ({searchResults}) => {
               <Fade in={true} timeout={500} >
                 <Paper elevation={2}>
                   <Box display="flex" className="search-result">
-                    <img src={result.screenshotUrl}></img>
+                    <Box className="img-container">
+                      <img src={result.screenshotUrl} alt="page screenshot"></img>
+                    </Box>
                     <Box display="flex" className="search-result-content">
                       <Box className="search-result-title" lineHeight="normal">
                         <Link href={result.url}
@@ -32,7 +35,7 @@ export const Results: React.FunctionComponent<Props> = ({searchResults}) => {
                       </Box>
                       <div className="search-result-snippets">
                         <Typography variant="body2" >
-                          {result.snippets.map((snippet, i) => <span key={i}>{snippet}</span>)}
+                          {result.snippets.map((snippet, i) => <span key={i} dangerouslySetInnerHTML={{__html: highlight(snippet, searchTerm)}}></span>)}
                         </Typography>
                       </div>
                     </Box>
@@ -46,3 +49,9 @@ export const Results: React.FunctionComponent<Props> = ({searchResults}) => {
     </Box>
   );
 };
+
+function highlight(text: string, searchString: string) {
+  const searchItems = searchString.split(/\s/);
+  const regExp = new RegExp('(' + searchItems.join('|') + ')', 'ig');
+  return text.replace(regExp, '<mark>$1</mark>');
+} 
