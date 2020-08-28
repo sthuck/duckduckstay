@@ -1,12 +1,16 @@
 import express from "express";
-import { stringify } from "./templates/jsx_string";
-import { renderSearchForm, renderSearchResults } from "./templates/searchForm";
-import { searchEs, SearchResults } from "./searchEs";
-import { getEsConfig } from "./es_client";
-import { fillScreenshotUrls } from "./result_screenshots";
-import { getScreenshotsS3Bucket } from "./cfg";
+import {stringify} from "./templates/jsx_string";
+import {renderSearchForm, renderSearchResults} from "./templates/searchForm";
+import {searchEs, SearchResults} from "./searchEs";
+import {getEsConfig} from "./es_client";
+import {fillScreenshotUrls} from "./result_screenshots";
+import {getScreenshotsS3Bucket} from "./cfg";
+import cors from 'cors';
 
 export function startServer(port: number): void {
+    process.on('unhandledRejection', (e) => {
+        console.error('promise rejection', e);
+    });
     const es = getEsConfig();
 
     const app = express();
@@ -44,7 +48,7 @@ export function startServer(port: number): void {
             internalServerError(res, err);
         }
     });
-    app.get('/api/search', async (req, res) => {
+    app.get('/api/search', cors(), async (req, res) => {
         try {
             const searchQuery = req.query["search"];
 

@@ -22,5 +22,5 @@ export interface SearchResult {
 
 export const search = (term: string) => {
   return fetch(`http://duckduckwebapp-env.eba-ypuyz5i6.us-east-1.elasticbeanstalk.com/api/search?search=${term}`)
-    .then(r => r.json());
+    .then(r => r.json()).then(r => r.results);
 };
