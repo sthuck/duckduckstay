@@ -6,3 +6,12 @@ export function getScreenshotsS3Bucket(): string {
 
     return bucket;
 }
+
+export function getRedisUrl(): string | null {
+    const redisUrl = process.env['REDIS_URL'];
+    if (redisUrl) {
+        return redisUrl;
+    } else {
+        return null;
+    }
+}
