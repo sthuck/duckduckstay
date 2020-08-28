@@ -1,7 +1,7 @@
 import { downloadWebpage, cleanupDownloadedWebpage } from "./DownloadWebpage";
 import { indexWebpage, EsConfig } from "./IndexWebpage";
 import { sendMessages, getQueueSize } from './sqs';
-import { uniq } from 'lodash';
+import { uniq, shuffle } from 'lodash';
 import { loggerFactory } from './logger';
 import { CachedMetricReporter } from "./metrics";
 import { isUrlMarkedAsDone, markUrlAsDone } from './url-tracking';
@@ -44,8 +44,9 @@ export function processLinkFactory(workerId: number, metricReporter: CachedMetri
 
     await Promise.all([saveWebpageScreenAction, indexWebpageAction]);
 
-    const linksToSqs: ProcessLinkInput[] = uniq(webpage.links.map(({ url }) => url).map(url => ({ url })))
+    const linksToSqs: ProcessLinkInput[] = shuffle(uniq(webpage.links.map(({ url }) => url).map(url => ({ url }))))
       .slice(0, envConfig.maxLinksFromPage);
-    await Promise.all([markUrlAsDone(input.url), sendMessages(linksToSqs)]);
+    await markUrlAsDone(input.url);
+    await sendMessages(linksToSqs);
   };
 }
