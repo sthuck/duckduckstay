@@ -1,4 +1,4 @@
-// import Chance from 'chance';
+import Chance from 'chance';
 export interface SearchResult {
   url: string;
   title: string;
@@ -16,7 +16,7 @@ export interface SearchResult {
 //       screenshotUrl: 'https://www.wholewhale.com/wp-content/uploads/2013/11/pp-website-thumbnail.png',
 //       snippets: new Array(3).fill(0).map(() => chance.paragraph()),
 //     }));
-//     setTimeout(() => resolve(data), 2000);
+//     setTimeout(() => resolve(data), 0);
 //   });
 // };
 

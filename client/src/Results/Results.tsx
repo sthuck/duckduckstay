@@ -22,22 +22,28 @@ export const Results: React.FunctionComponent<Props> = ({searchResults, searchTe
             <Grid item sm={12} md={6} key={result.url}>
               <Fade in={true} timeout={500} >
                 <Paper elevation={2}>
-                  <Box display="flex" className="search-result">
-                    <Box className="img-container">
-                      <img src={result.screenshotUrl} alt="page screenshot"></img>
-                    </Box>
-                    <Box display="flex" className="search-result-content">
-                      <Box className="search-result-title" lineHeight="normal">
-                        <Link href={result.url}
-                          target="_blank"
-                          variant={"subtitle1"}
-                          underline={"hover"}>{result.title}</Link>
+                  <Box display="flex" flexDirection="column" className="search-result-container">
+
+                    <Box display="flex" className="search-result">
+                      <Box className="img-container">
+                        <img src={result.screenshotUrl} alt="page screenshot"></img>
                       </Box>
-                      <div className="search-result-snippets">
-                        <Typography variant="body2" >
-                          {result.snippets.map((snippet, i) => <span key={i} dangerouslySetInnerHTML={{__html: highlight(snippet, searchTerm)}}></span>)}
-                        </Typography>
-                      </div>
+                      <Box display="flex" className="search-result-content">
+                        <Box className="search-result-title" lineHeight="normal">
+                          <Link href={result.url}
+                            target="_blank"
+                            variant={"subtitle1"}
+                            underline={"hover"}>{result.title}</Link>
+                        </Box>
+                        <div className="search-result-snippets">
+                          <Typography variant="body2" >
+                            {result.snippets.map((snippet, i) => <span key={i} dangerouslySetInnerHTML={{__html: highlight(snippet, searchTerm)}}></span>)}
+                          </Typography>
+                        </div>
+                      </Box>
+                    </Box>
+                    <Box className="result-url">
+                      <span title={result.url}>{result.url}</span>
                     </Box>
                   </Box>
                 </Paper>
